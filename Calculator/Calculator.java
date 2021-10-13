@@ -1,11 +1,11 @@
 public class Calculator {
    public static void main(String[] args) {
 
-   	System.out.println("Adding: 9 + 10 | " + Add(9,10));
-   	System.out.println("Subtracting: 11 - 10 | " + Subtract(11,10));
-   	System.out.println("Multiplying: 10 * 10 | " + Multiply(10,10));
-   	System.out.println("Remainder: 10 % 2 | " + Remainder(10,2));
-   	System.out.println("Day: Wednesday | " + Weekday("Wednesday"));
+   	System.out.println("Adding: 9 + 10 | " + add(9,10));
+   	System.out.println("Subtracting: 11 - 10 | " + subtract(11,10));
+   	System.out.println("Multiplying: 10 * 10 | " + multiply(10,10));
+   	System.out.println("Remainder: 4 % 8 | " + remainder(4,8));
+   	System.out.println("Day: Wednesday | " + weekday("Wednesday"));
    	System.out.println("Countdown 10");
    	countdown(10);
    	System.out.println("Greeting: Sam");
