@@ -2,6 +2,8 @@
 
 public class CharacterClass {
 
+	public static int numCharacters;
+
 	public String characterName;
 	String characterType;
 	double speed; 
@@ -18,6 +20,8 @@ public class CharacterClass {
 		strength = 5;
 		level = 1;
 		gold = 0;
+
+		numCharacters++;
 	}
 	public CharacterClass( String characterName, String characterType  ) {
 
@@ -28,6 +32,8 @@ public class CharacterClass {
 		strength = 5;
 		level = 1;
 		gold = 0;
+
+		numCharacters++;
 
 	}
 
