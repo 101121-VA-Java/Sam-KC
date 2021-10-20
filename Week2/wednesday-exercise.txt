@@ -2,12 +2,14 @@ int score = 80; // A variable of type int and of name score is declared and is a
 
 String result; // A variable of type String with a name result is declared with no value assigned to it;
 
-if (score == 80) {  // condition that checks if the score is 0;
+if (score == 80) {  // condition that checks if the score is 80;
 	result = "You passed!"; // code to be executed if the condition true;
+	// result will be assigned the String value of ""You passed!";
 } else if (score > 80) { //  specifying a new condition if first condition is false;
 	result = "You did great!"; / code to be executed if the score is greater than 80;
+	// result will be assigned the String value of ""You did great!";
 } else { // If no condition above is met, the code below will execute;
-	result = "You did not pass. Try again!";
+	result = "You did not pass. Try again!"; //result will be assigned the String value of ""You did not pass";
 }
 
 System.out.println(result); // Printing the value of result using method from java.lang package.
