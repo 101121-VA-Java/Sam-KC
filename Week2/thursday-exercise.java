@@ -11,7 +11,7 @@ public static void main(String[] args) {
 	
   // an enhanced for loop which iterates through each elements in the array foodsOfMyType and references the element value in the food variable.
 	for (String food : foodsOfMyType) {
-  //Printing the value of food using method from java.lang package.
+  		//Printing the value of each dinner food (curry, stir fry, burger) using method from java.lang package.
 		System.out.println(food);
 	}
 }
