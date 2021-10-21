@@ -38,34 +38,34 @@ public static String[] getFoodsByType(String type) {
 		foods[0] = "pancakes";
 		foods[1] = "cereal";
 		foods[2] = "omelette";
-		break;
+		break; //terminates the switch block
 	case "lunch": // condition that checks if the type is "lunch" ;
   // Assigns values to each element.
 		foods[0] = "sandwich";
 		foods[1] = "salad";
 		foods[2] = "soup";
-		break;
+		break; //terminates the switch block
 	case "dinner":  // condition that checks if the type is "dinner" ;
   // Assigns values to each element.
 		foods[0] = "curry";
 		foods[1] = "stir fry";
 		foods[2] = "burger";
-		break;
+		break; //terminates the switch block
 	case "dessert": // condition that checks if the type is "dessert" ;
   // Assigns values to each element.
 		foods[0] = "cake";
 		foods[1] = "ice cream";
 		foods[2] = "candy";
-		break;
+		break; //terminates the switch block
 	case "snack": // condition that checks if the type is "snack" ;
   // Assigns values to each element.
 		foods[0] = "chips";
 		foods[1] = "apple";
 		foods[2] = "samosa";
-		break;
+		break; //terminates the switch block
 	default:  // If no condition above is met, the code below will execute;
 		// add your own
-		break;
+		break; //terminates the switch block
 	}
 
 	return foods; // returns the array of foods.
