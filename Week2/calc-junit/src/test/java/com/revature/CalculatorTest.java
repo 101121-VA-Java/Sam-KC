@@ -81,10 +81,24 @@ public class CalculatorTest {
 	public void divideBy0() {
 		assertThrows(ArithmeticException.class, () -> cal.divide(1, 0), "Error");
 	}
+	@Order(6)
+	@Test
+	public void checkisPrimeOne() {
+		boolean expected = true;
+		boolean actual = cal.isPrime(1);
+		assertEquals(expected, actual);
+	}
 
 	// ---- INVALID TESTS ------
+	@Order(6)
+	@Test
+	public void checkisPrimeOneInvalid() {
+		boolean expected = true;
+		boolean actual = cal.isPrime(1);
+		assertEquals(expected, actual);
+	}
 	
-	@Order(1)
+	@Order(7)
 	@Test
 	public void addOneAndOneInvalid() {
 		double expected = 3;
@@ -93,7 +107,7 @@ public class CalculatorTest {
 	}
 
 
-	@Order(2)
+	@Order(8)
 	@Test
 	public void addMinusTwoAndOneInvalid() {
 		double expected = -4;
@@ -101,14 +115,14 @@ public class CalculatorTest {
 		assertEquals(expected, actual);
 	}
 	
-	@Order(3)
+	@Order(9)
 	@Test
 	public void multiplyOneandOneInvalid() {
 		double expected = 5;
 		double actual = cal.multiply(1, 1);
 		assertEquals(expected, actual);
 	}
-	@Order(4)
+	@Order(10)
 	@Test
 	public void divideOneandOneInvalid() {
 		double expected = 6;

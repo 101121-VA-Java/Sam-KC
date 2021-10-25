@@ -33,7 +33,12 @@ public class Calculator extends CalculatorException {
 		return x/y;
 	}
 	
-	public boolean isPrime(int i) {
-		return true;
+	public boolean isPrime(int i) {		
+		if (i == 1 ) { return false;}
+	    for(int ii=2;ii<i;ii++) {
+	        if(i%ii==0)
+	            return false;
+	    }
+	    return true;
 	}
 }
