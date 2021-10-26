@@ -9,9 +9,10 @@ public class User {
 	private String password;
 	private UserType userType;
 	
-	public User(int id, String name, String username, String password, UserType user) {
+	public User(String name, String username, String password, UserType user) {
 		super();
-		this.id = id;
+		//TODO: gen ID
+		//this.id = id;
 		this.name = name;
 		this.username = username;
 		this.password = password;
@@ -50,11 +51,11 @@ public class User {
 		this.password = password;
 	}
 
-	public UserType getUser() {
+	public UserType getUserType() {
 		return userType;
 	}
 
-	public void setUser(UserType userType) {
+	public void setUserType(UserType userType) {
 		this.userType = userType;
 	}
 	
