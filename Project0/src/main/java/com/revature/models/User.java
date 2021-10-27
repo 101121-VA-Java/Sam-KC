@@ -1,5 +1,7 @@
 package com.revature.models;
 
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class User {
 
@@ -8,6 +10,7 @@ public class User {
 	private String username;
 	private String password;
 	private UserType userType;
+	private ArrayList<Payment> payment;
 	
 	public User(String name, String username, String password, UserType user) {
 		super();
@@ -17,6 +20,23 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.userType = user;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, password, username);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return id == other.id && Objects.equals(password, other.password) && Objects.equals(username, other.username);
 	}
 
 	public int getId() {

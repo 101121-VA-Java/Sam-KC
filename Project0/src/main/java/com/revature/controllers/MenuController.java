@@ -23,9 +23,10 @@ public class MenuController {
 			
 			switch(input) {
 			case "1":
+				registerUser(sc);
 				break;
 			case "2":
-				redirectMenu(sc);
+				redirectLogin(sc);
 				break;
 			case "3":
 				run = false;
@@ -38,9 +39,14 @@ public class MenuController {
 		sc.close();
 	}
 	
+	
+	private void registerUser(Scanner sc) {
+		
+		
+	}
 
 
-	private void redirectMenu(Scanner sc) {
+	private void redirectLogin(Scanner sc) {
 		
 		//TODO : auth user
 		

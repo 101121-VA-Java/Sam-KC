@@ -5,7 +5,7 @@ public interface UserDao {
 
 	
 	int addUser(User u);
-	int loginUser(User u);
+	boolean loginUser(User u);
 	
 	
 	
