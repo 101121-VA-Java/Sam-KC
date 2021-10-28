@@ -25,9 +25,9 @@ public class Driver {
 //	As the system, I can calculate the weekly payment.
 
 	public static void main(String[] args) {
-		UserPostgres up = new UserPostgres();
-//		MenuController mc = new MenuController();
-//		mc.mainMenu();
+//		UserPostgres up = new UserPostgres();
+		MenuController mc = new MenuController();
+		mc.mainMenu();
 		
 	}
 

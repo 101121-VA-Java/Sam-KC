@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class User {
-
+	
+	public static int currentUser;
 	private int id;
 	private String name;
 	private String username;
 	private String password;
 	private UserType userType;
-	private ArrayList<Payment> payment;
+	
 	
 	public User(String name, String username, String password, UserType user) {
 		super();

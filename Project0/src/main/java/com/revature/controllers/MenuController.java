@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.revature.models.User;
 import com.revature.models.UserType;
+import com.revature.services.UserAuth;
 
 public class MenuController {
 	Scanner sc = new Scanner(System.in);
@@ -41,6 +42,23 @@ public class MenuController {
 	
 	
 	private void registerUser(Scanner sc) {
+		String name;
+		String username;
+		String password;
+		System.out.println("Enter your name:");
+		name = sc.nextLine();
+		System.out.println("Enter your username:");
+		username = sc.nextLine();
+		System.out.println("Enter your password:");
+		password = sc.nextLine();
+		
+		User u = new User(name, username, password, UserType.CUSTOMER);
+		UserAuth ua = new UserAuth();
+		if (ua.register(u) == 1) {
+			System.out.println("User Created");
+			User.currentUser = u.getId();
+		}
+		
 		
 		
 	}

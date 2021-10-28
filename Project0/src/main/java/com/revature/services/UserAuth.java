@@ -12,18 +12,30 @@ public class UserAuth {
 	private UserDaoList ul;
 	
 	
-	public void register(User u) {
-		up.addUser(u);
+	public UserAuth() {
+		up = new UserPostgres();
 	}
+	
+	public int register(User u) {
+		return up.addUser(u);
+	}
+	
+	
+	
 	public boolean logIn(User u) {
+
+		
 		// for db
-		
-		
-		// for list
-		if (ul.loginUser(u)) {
+		if (up.loginUser(u)) {
 			return true;
 		}		
 		return false;
+		
+		// for list
+//		if (ul.loginUser(u)) {
+//			return true;
+//		}		
+//		return false;
 		
 	}
 	

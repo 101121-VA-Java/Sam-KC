@@ -3,13 +3,12 @@ package com.revature.models;
 
 public class Guitar {
 
-String guitarType;
-String model;
-String guitarCondition;
-int numStrings;
-int numFrets;
-double price;
-boolean ownedState;
+
+private int itemID;
+private String guitarType;
+private String model;
+private String guitarCondition;
+
 
 public Guitar( String guitarType, String model, String guitarCondition  ) {
 
