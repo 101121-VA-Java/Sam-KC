@@ -42,9 +42,13 @@ public class MenuController {
 	
 	
 	private void registerUser(Scanner sc) {
-		String name;
-		String username;
-		String password;
+		boolean run = true;		
+		boolean validData = false;
+		String name = "";
+		String username = "";
+		String password = "";
+		while(run) {		
+		while (!validData) {		
 		System.out.println("Enter your name:");
 		name = sc.nextLine();
 		System.out.println("Enter your username:");
@@ -52,14 +56,27 @@ public class MenuController {
 		System.out.println("Enter your password:");
 		password = sc.nextLine();
 		
+		if ((username.length() < 4 && password.length() < 4)) {
+		System.out.println("username & password must have at least 4 characters:");
+		}
+		else {
+			validData = true;
+		}
+		}
 		User u = new User(name, username, password, UserType.CUSTOMER);
 		UserAuth ua = new UserAuth();
-		if (ua.register(u) == 1) {
+		String returnVal = ua.register(u);
+		if (returnVal == "true") {
 			System.out.println("User Created");
 			User.currentUser = u.getId();
+			run = false;
+		}
+		else {
+			validData = false;
+			System.out.println(returnVal);
 		}
 		
-		
+		}
 		
 	}
 

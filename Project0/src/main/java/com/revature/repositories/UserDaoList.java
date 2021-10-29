@@ -9,11 +9,11 @@ public class UserDaoList implements UserDao {
 
 
 	@Override
-	public int addUser(User u) {
+	public boolean addUser(User u) {
 
 		u.setId(Users.size());
 		Users.add(u);
-		return u.getId();
+		return true;
 	}
 
 	@Override

@@ -1,4 +1,8 @@
 package com.revature.services;
+import java.sql.SQLException;
+
+import org.postgresql.util.PSQLException;
+
 import com.revature.models.User;
 import com.revature.repositories.UserDao;
 import com.revature.repositories.UserDaoList;
@@ -16,8 +20,23 @@ public class UserAuth {
 		up = new UserPostgres();
 	}
 	
-	public int register(User u) {
-		return up.addUser(u);
+	public String register(User u)  {
+		String created = "Something went wrong.";
+		try {
+			return String.valueOf(up.addUser(u));
+		}
+//		catch (PSQLException e) {				
+//			
+//			//System.out.println(e.getErrorCode());
+//			e.printStackTrace();
+//		}
+		catch (SQLException e) {				
+			e.printStackTrace();
+			//System.out.println(e.getErrorCode());
+			//e.printStackTrace();
+		}
+
+		return created;
 	}
 	
 	

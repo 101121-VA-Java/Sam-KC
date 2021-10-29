@@ -6,6 +6,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import org.postgresql.util.PSQLException;
+
 import java.sql.Statement;
 
 public class UserPostgres implements UserDao {
@@ -15,18 +18,18 @@ public class UserPostgres implements UserDao {
 	  private final static String USER = "postgres";
 	  private final static String PASS = "";
 
-	public UserPostgres() {
-		try {
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            if (conn != null) {
-                System.out.println("Connected to database #1");
-                
-            }
-			}
-            catch (SQLException e) {
-			e.printStackTrace();
-			}       
-		
+	public void connectDB() throws SQLException {
+//		try {
+//            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+//            if (conn != null) {
+//                System.out.println("Connected to database #1");
+//                
+//            }
+//			}
+//            catch (SQLException e) {
+//			e.printStackTrace();
+//			}       
+		conn = DriverManager.getConnection(DB_URL,USER,PASS);
 	 } 
 		
 		
@@ -44,27 +47,30 @@ public class UserPostgres implements UserDao {
 		}
 		
 	}
-	public int addUser(User u) {
+	public boolean addUser(User u) throws SQLException{
+		connectDB();
+		boolean result = false;
 		
-		int result = 0;
-		
-		String userId = "'" + "20" + "' , ";
+		String userId = "'" + "1552" + "' , ";	
 		String name = "'" + u.getName() + "' , ";
 		String username = "'" + u.getUsername() + "' , ";
 		String password = "'" + u.getPassword() + "' , ";
 		String userType = "'" + u.getUserType() + "' ";		
-		String values = userId + name + username + password + userType;
+		String values =   userId + name + username + password + userType;
 		
-		String sql = "INSERT INTO Users VALUES (" + values + ");";
-		
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			result = 1;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//String sql = "INSERT INTO USERS (name, username, password, userType )VALUES  (" + values + ");";
+		String sql = "INSERT INTO USERS VALUES  (" + values + ");";
+		Statement stmt = conn.createStatement();
+
+//		try {
+//			Statement stmt = conn.createStatement();
+//			stmt.executeUpdate(sql);
+//			result = true;
+//		} 
+//		catch (SQLException e) {
+//			throw new SQLException();
+//		}
+
 		return result;
 	}
 
