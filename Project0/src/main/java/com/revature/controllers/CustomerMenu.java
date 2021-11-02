@@ -1,6 +1,11 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.revature.models.Item;
+import com.revature.models.User;
+import com.revature.services.Items;
 
 public class CustomerMenu {
 	
@@ -41,26 +46,27 @@ public class CustomerMenu {
 	
 	private void itemsMenu(Scanner sc) {
 		
-		boolean run = true;
-		
-		while(run) {
-			
-			//TODO: Display Items
-			System.out.println("~item list~");
-			System.out.println("Please select an item number to make offer for:");
-			System.out.println("or type exit to go back. ");			
-			String input = sc.nextLine();
-			
-			
-			if (!input.equals("exit")) {
-			
+		Items li = new Items();
+		ArrayList<Item> listitems = li.getItems();
+		if (listitems != null) {
+			for (Item i : listitems) {
+				System.out.println(i);
 			}
-			else {
-				run = false;
-			}
-
-		}		
-
+			
+			System.out.println("Please select itemID to make offer for:");
+			int itemNum = sc.nextInt();
+			sc.nextLine();
+			System.out.println("Please enter the amount you would like to offer:");
+			double itemPrice = sc.nextDouble();
+			sc.nextLine();
+			
+			Items i = new Items();
+			i.makeOffer(User.currentUser, itemNum, itemPrice);
+			
+		}
+		else {
+			System.out.println("Error retrieving items.");
+		}
 	
 }
 	private void viewOwnedItems(Scanner sc) {

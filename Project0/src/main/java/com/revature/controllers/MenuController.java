@@ -42,9 +42,13 @@ public class MenuController {
 	
 	
 	private void registerUser(Scanner sc) {
-		String name;
-		String username;
-		String password;
+		boolean run = true;		
+		boolean validData = false;
+		String name = "";
+		String username = "";
+		String password = "";
+		while(run) {		
+		while (!validData) {		
 		System.out.println("Enter your name:");
 		name = sc.nextLine();
 		System.out.println("Enter your username:");
@@ -52,30 +56,59 @@ public class MenuController {
 		System.out.println("Enter your password:");
 		password = sc.nextLine();
 		
-		User u = new User(name, username, password, UserType.CUSTOMER);
+		if ((username.length() < 4 && password.length() < 4)) {
+		System.out.println("username & password must have at least 4 characters:");
+		}
+		else {
+			validData = true;
+		}
+		}
+		User u = new User(name, username, password, UserType.EMPLOYEE);
 		UserAuth ua = new UserAuth();
-		if (ua.register(u) == 1) {
-			System.out.println("User Created");
-			User.currentUser = u.getId();
+		String returnVal = ua.register(u);
+		if (returnVal == "true") {
+			System.out.println("User Created");			
+			run = false;
+		}
+		else {
+			validData = false;
+			System.out.println(returnVal);
 		}
 		
-		
+		}
 		
 	}
 
 
 	private void redirectLogin(Scanner sc) {
 		
-		//TODO : auth user
-		
-		User u = new User("sam", "skc","pass", UserType.EMPLOYEE);
-		
-		if (u.getUserType() == UserType.EMPLOYEE) {
-			employeeMenu.employeeMenu(sc);
+		boolean run = true;
+		String username = "";
+		String password = "";
+		while(run) {		
+			System.out.println("Enter your username:");
+			username = sc.nextLine();
+			System.out.println("Enter your password:");
+			password = sc.nextLine();
+			UserAuth ua = new UserAuth();
+			String authResult = ua.logIn(username, password);
+			if (authResult.equals("loggedin")) {
+				run = false;
+				System.out.println("Welcome " + User.currentUser.getName());
+				
+				if (User.currentUser.getUserType() == UserType.CUSTOMER) {					
+					customerMenu.customerMenu(sc);
+				}
+				else if (User.currentUser.getUserType() == UserType.EMPLOYEE) {
+					employeeMenu.employeeMenu(sc);
+				}
+			}
+			else {
+				System.out.println(authResult);
+			}
+			
 		}
-		else {
-			customerMenu.customerMenu(sc);
-		}
+
 		
 	}
 	

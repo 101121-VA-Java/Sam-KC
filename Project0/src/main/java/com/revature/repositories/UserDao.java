@@ -1,11 +1,13 @@
 package com.revature.repositories;
+import java.sql.SQLException;
+
 import com.revature.models.User;
 
 public interface UserDao {
 
 	
-	int addUser(User u);
-	boolean loginUser(User u);
+	void addUser(User u) throws SQLException;
+	User getUser(String username) throws SQLException;
 	
 	
 	

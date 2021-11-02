@@ -2,6 +2,9 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
+import com.revature.models.Item;
+import com.revature.services.Items;
+
 public class EmployeeMenu {
 
 	public void employeeMenu(Scanner sc) {
@@ -44,8 +47,27 @@ public class EmployeeMenu {
 	
 	private void addItem(Scanner sc) {		
 		
-		//TODO: Add item.
-		System.out.println("~Add item~");
+		
+		System.out.println("Enter brand name");
+		String brand = sc.nextLine();
+		System.out.println("Enter model name");
+		String model = sc.nextLine();		
+		System.out.println("Enter battery Capacity");
+		int battery = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Does it support face detection?");
+		String fd = sc.nextLine();
+		System.out.println("Enter condition");
+		String cond = sc.nextLine();
+		boolean fdd = false;
+		if (fd.equals("yes")){  fdd = true;}
+		
+		Item g = new Item(brand, model, battery, fdd, cond);		
+		Items item = new Items();
+		item.addItem(g);
+		
+		
+		
 	}
 	private void approveOffers(Scanner sc) {		
 		

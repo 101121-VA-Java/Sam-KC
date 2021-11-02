@@ -1,11 +1,16 @@
 package com.revature.repositories;
 
 import com.revature.models.User;
+import com.revature.models.UserType;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 import java.util.Properties;
+
+import org.postgresql.util.PSQLException;
+
 import java.sql.Statement;
 
 public class UserPostgres implements UserDao {
@@ -15,18 +20,18 @@ public class UserPostgres implements UserDao {
 	  private final static String USER = "postgres";
 	  private final static String PASS = "";
 
-	public UserPostgres() {
-		try {
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-            if (conn != null) {
-                System.out.println("Connected to database #1");
-                
-            }
-			}
-            catch (SQLException e) {
-			e.printStackTrace();
-			}       
-		
+	public void connectDB() throws SQLException {
+//		try {
+//            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+//            if (conn != null) {
+//                System.out.println("Connected to database #1");
+//                
+//            }
+//			}
+//            catch (SQLException e) {
+//			e.printStackTrace();
+//			}       
+		conn = DriverManager.getConnection(DB_URL,USER,PASS);
 	 } 
 		
 		
@@ -44,33 +49,60 @@ public class UserPostgres implements UserDao {
 		}
 		
 	}
-	public int addUser(User u) {
+	public void addUser(User u) throws SQLException{
+		connectDB();		
 		
-		int result = 0;
-		
-		String userId = "'" + "20" + "' , ";
+		//String userId = "'" + "1552" + "' , ";	
 		String name = "'" + u.getName() + "' , ";
 		String username = "'" + u.getUsername() + "' , ";
 		String password = "'" + u.getPassword() + "' , ";
 		String userType = "'" + u.getUserType() + "' ";		
-		String values = userId + name + username + password + userType;
+		//String values =   userId + name + username + password + userType;
+		String values =   name + username + password + userType;
 		
-		String sql = "INSERT INTO Users VALUES (" + values + ");";
+		String sql = "INSERT INTO USERS (name, username, password, userType )VALUES  (" + values + ");";
 		
-		try {
-			Statement stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			result = 1;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return result;
+		//for testing
+		//String sql = "INSERT INTO USERS VALUES  (" + values + ");";
+				 
+		Statement stmt = conn.createStatement();
+		stmt.executeUpdate(sql);
+		stmt.close();
+		conn.close();
 	}
 
-	public boolean loginUser(User u) {
-		// TODO Auto-generated method stub
-		return false;
+		// returns null if user doesn't exist
+		// returns exception if something went wrong
+	public User getUser(String username) throws SQLException {
+		User u = null;
+		connectDB();
+		String sql = "SELECT * FROM USERS WHERE username = '" + username + "';" ;
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		while ( rs.next() ) {
+			
+			
+			/// ---------------------- converting string to enums
+			UserType usertype = null;
+			if (rs.getString("userType").equals("CUSTOMER")) {
+				usertype = UserType.CUSTOMER;
+			}
+			else if (rs.getString("userType").equals("EMPLOYEE")) {
+				usertype = UserType.EMPLOYEE;
+			}
+			else if (rs.getString("userType").equals("MANAGER")) {
+				usertype = UserType.MANAGER;
+			}
+			/// ----------------------
+			
+			
+			u = new User(rs.getString("name"), rs.getString("username"), rs.getString("password"), usertype);
+			u.setId(rs.getInt("userid"));
+			return u;
+		}
+
+		return null;
 	}
 
 }
