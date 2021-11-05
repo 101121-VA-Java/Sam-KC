@@ -34,9 +34,7 @@ public class UserAuth {
 				}			
 		}
 		catch (IOException e) {				
-			if (e.getMessage().contains("duplicate key value")) {
-				return "User already exists";
-				}			
+	
 		}
 		return created;
 	}

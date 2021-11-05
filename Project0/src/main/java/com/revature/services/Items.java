@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import com.revature.models.Item;
 import com.revature.models.Offers;
+import com.revature.models.Payments;
 import com.revature.models.User;
 import com.revature.repositories.itemsPostgres;
 
@@ -67,7 +68,8 @@ public class Items {
 	
 	public ArrayList<Offers> getPendingOffers() {
 		try {
-			System.out.println(id.getPendingOffers());	
+			displayListOffers(id.getPendingOffers());	
+			
 			return id.getPendingOffers();
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -79,6 +81,7 @@ public class Items {
 	public void changeOfferStatus(int offerId, boolean approval, int itemId) {
 		try {
 			id.changeOfferStatus(offerId, approval, itemId);
+			System.out.println("item status changed");
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -95,7 +98,7 @@ public class Items {
 	
 	public void viewOwnedItems(int userId) {
 		try {				
-			System.out.println(id.viewOwnedItems(userId));		
+			displayListItems(id.viewOwnedItems(userId));		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -109,7 +112,7 @@ public class Items {
 	//TODO: if null, print no payments
 	public void viewAllPayments() {
 		try {
-			System.out.println(id.viewAllPayments());
+			displayListPayments(id.viewAllPayments());
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,12 +122,27 @@ public class Items {
 	//TODO: if null, print no payments
 	public void viewOwnedPayments(int userId) {
 		try {
-			System.out.println(id.viewOwnedPayments(userId));
+			displayListPayments(id.viewOwnedPayments(userId));
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 	
+	public void displayListItems(ArrayList<Item> list) {
+		for (Item i : list) {
+			System.out.println(i);
+		}
+	}
+	public void displayListPayments(ArrayList<Payments> list) {
+		for (Payments i : list) {
+			System.out.println(i);
+		}
+	}
+	public void displayListOffers(ArrayList<Offers> list) {
+		for (Offers i : list) {
+			System.out.println(i);
+		}
+	}
 	
 }

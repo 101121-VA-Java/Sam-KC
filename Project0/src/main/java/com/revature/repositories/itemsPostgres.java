@@ -72,9 +72,10 @@ public class itemsPostgres implements ItemsDao {
 	@Override
 	public void removeItem(int itemId) throws IOException, SQLException {
 		conn = ConnectionUtil.getConnectionFromFile();
-		String sql = "delete from ITEMS where itemid = ?";
+		String sql = "delete from USER_OFFERS where itemid = ? ; delete from ITEMS where itemid = ?";
 		PreparedStatement ps = conn.prepareStatement(sql);		
 		ps.setInt(1, itemId);
+		ps.setInt(2, itemId);
 		ps.executeUpdate();		
 	}
 
@@ -167,15 +168,14 @@ public class itemsPostgres implements ItemsDao {
 		conn = ConnectionUtil.getConnectionFromFile();		
 		
 		
-		String sql = "select distinct i.itemid, u.\"name\", "
-				+ "i.brand, i.model from items i join USER_OFFERS o "
-				+ "on o.payment_made = true join USERS u on u.userid > 0;" ;		
+		String sql = "select * from user_offers uo join users u on uo.userid "
+				+ "=u.userid join items i on i.itemid  = uo.itemid;" ;		
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);		
 		ArrayList<Payments> items = new ArrayList<Payments>();
 		while ( rs.next() ) {	
 			Payments i = new Payments(rs.getInt("itemid"), rs.getString("name"),
-					rs.getString("brand"), rs.getString("model"), true);			
+					rs.getString("brand"), rs.getString("model"), rs.getBoolean("payment_made"));			
 			items.add(i);			
 		}
 		
@@ -187,16 +187,15 @@ public class itemsPostgres implements ItemsDao {
 		conn = ConnectionUtil.getConnectionFromFile();		
 		
 		
-		String sql = "select distinct i.itemid, u.\"name\", "
-				+ "i.brand, i.model from items i join USER_OFFERS o "
-				+ "on o.payment_made = false join USERS u on u.userid = " + userId +";" ;
+		String sql = "select * from user_offers uo join users u on uo.userid"
+				+ " =u.userid join items i on i.itemid  = uo.itemid where uo.payment_made = false;" ;
 		
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);		
 		ArrayList<Payments> items = new ArrayList<Payments>();
 		while ( rs.next() ) {	
 			Payments i = new Payments(rs.getInt("itemid"), rs.getString("name"),
-					rs.getString("brand"), rs.getString("model"), true);			
+					rs.getString("brand"), rs.getString("model"), false);			
 			items.add(i);			
 		}
 		

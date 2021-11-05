@@ -1,7 +1,9 @@
 package com.revature;
 
+import com.revature.controllers.InputValidator;
 import com.revature.controllers.MenuController;
 import com.revature.repositories.UserPostgres;
+import java.util.Scanner;
 
 public class Driver {
 	
@@ -25,9 +27,19 @@ public class Driver {
 //	As the system, I can calculate the weekly payment.
 
 	public static void main(String[] args) {
-//		UserPostgres up = new UserPostgres();
+
 		MenuController mc = new MenuController();
 		mc.mainMenu();
+		
+//		Scanner sc = new Scanner(System.in);
+//		InputValidator iv = new InputValidator();
+//		System.out.println("Enter a String");
+//		
+//		String teststr = iv.validateString(sc, 3, 5);
+//		System.out.println(teststr);
+//		System.out.println("Enter an int");
+//		int testInt = iv.validateInt(sc);
+//		System.out.println(testInt);
 		
 	}
 

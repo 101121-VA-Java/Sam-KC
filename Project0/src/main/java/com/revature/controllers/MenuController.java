@@ -6,10 +6,12 @@ import com.revature.models.User;
 import com.revature.models.UserType;
 import com.revature.services.UserAuth;
 
+
 public class MenuController {
 	Scanner sc = new Scanner(System.in);
 	CustomerMenu customerMenu = new CustomerMenu();
 	EmployeeMenu employeeMenu = new EmployeeMenu();
+	InputValidator iv = new InputValidator();
 
 	public void mainMenu() {
 		boolean run = true;
@@ -42,27 +44,20 @@ public class MenuController {
 	
 	
 	private void registerUser(Scanner sc) {
-		boolean run = true;		
-		boolean validData = false;
+		boolean run = true;	
 		String name = "";
 		String username = "";
 		String password = "";
 		while(run) {		
-		while (!validData) {		
+				
 		System.out.println("Enter your name:");
-		name = sc.nextLine();
+		name = iv.validateString(sc, 3, 15);
 		System.out.println("Enter your username:");
-		username = sc.nextLine();
+		username = iv.validateString(sc, 3, 15);
 		System.out.println("Enter your password:");
-		password = sc.nextLine();
+		password = iv.validateString(sc, 3, 15);	
+
 		
-		if ((username.length() < 4 && password.length() < 4)) {
-		System.out.println("username & password must have at least 4 characters:");
-		}
-		else {
-			validData = true;
-		}
-		}
 		User u = new User(name, username, password, UserType.EMPLOYEE);
 		UserAuth ua = new UserAuth();
 		String returnVal = ua.register(u);
@@ -70,8 +65,7 @@ public class MenuController {
 			System.out.println("User Created");			
 			run = false;
 		}
-		else {
-			validData = false;
+		else {			
 			System.out.println(returnVal);
 		}
 		
@@ -87,9 +81,9 @@ public class MenuController {
 		String password = "";
 		while(run) {		
 			System.out.println("Enter your username:");
-			username = sc.nextLine();
+			username = iv.validateString(sc, 3, 15);
 			System.out.println("Enter your password:");
-			password = sc.nextLine();
+			password = iv.validateString(sc, 3, 15);
 			UserAuth ua = new UserAuth();
 			String authResult = ua.logIn(username, password);
 			if (authResult.equals("loggedin")) {

@@ -8,7 +8,7 @@ import com.revature.models.Offers;
 import com.revature.services.Items;
 
 public class EmployeeMenu {
-
+	InputValidator iv = new InputValidator();
 	public void employeeMenu(Scanner sc) {
 		
 		boolean run = true;
@@ -51,39 +51,37 @@ public class EmployeeMenu {
 		
 		
 		System.out.println("Enter brand name");
-		String brand = sc.nextLine();
+		String brand = iv.validateString(sc, 1, 35);
 		System.out.println("Enter model name");
-		String model = sc.nextLine();		
+		String model = iv.validateString(sc, 1, 35);	
 		System.out.println("Enter battery Capacity");
-		int battery = sc.nextInt();
+		int battery = iv.validateInt(sc);
 		sc.nextLine();
 		System.out.println("Does it support face detection?");
-		String fd = sc.nextLine();
+		boolean fd = iv.validateBoolean(sc);
 		System.out.println("Enter condition");
-		String cond = sc.nextLine();
-		boolean fdd = false;
-		if (fd.equals("yes")){  fdd = true;}
-		
-		Item g = new Item(brand, model, battery, fdd, cond);		
+		String cond = iv.validateString(sc, 1, 35);				
+		Item g = new Item(brand, model, battery, fd, cond);		
 		Items item = new Items();
 		if (
 		item.addItem(g)
 		== false) {
 			System.out.println("Could not add item");
 		}
-		
-		
-		
+		else {
+			System.out.println("Item added to shop");
+		}
+			
 	}
 	private void approveOffers(Scanner sc) {		
 		Items item = new Items();
 		ArrayList<Offers> listOffers = item.getPendingOffers();
 		System.out.println("Select offer ID to approve/reject");
-		int offerId = sc.nextInt();
+		int offerId = iv.validateInt(sc);
 		sc.nextLine();
-		System.out.println("Approve or Reject Offer?");
-		String approval = sc.nextLine();
-		if ( approval.equals("approve")) {
+		System.out.println("Approve Offer? : please enter yes or no");
+		boolean approval = iv.validateBoolean(sc);		
+		if ( approval) {
 			for (Offers o : listOffers) {
 				if (o.getItemId() == offerId) {
 					item.changeOfferStatus(offerId, true, o.getItemId());
@@ -105,7 +103,7 @@ public class EmployeeMenu {
 			}
 			
 			System.out.println("Please select itemID to delete");
-			int itemNum = sc.nextInt();
+			int itemNum = iv.validateInt(sc);
 			sc.nextLine();
 			Items item = new Items();
 			item.removeItem(itemNum);
@@ -120,6 +118,7 @@ public class EmployeeMenu {
 		
 		Items li = new Items();
 		li.viewAllPayments();
-	}
+	}	
+
 	
 }

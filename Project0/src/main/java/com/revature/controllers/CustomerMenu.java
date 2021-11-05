@@ -2,13 +2,13 @@ package com.revature.controllers;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import com.revature.models.Item;
 import com.revature.models.User;
 import com.revature.services.Items;
 
+
 public class CustomerMenu {
-	
+	InputValidator iv = new InputValidator();
 	
 	public void customerMenu(Scanner sc) {
 		
@@ -54,10 +54,10 @@ public class CustomerMenu {
 			}
 			
 			System.out.println("Please select itemID to make offer for:");
-			int itemNum = sc.nextInt();
-			sc.nextLine();
+			int itemNum = iv.validateInt(sc);
+			//sc.nextLine();
 			System.out.println("Please enter the amount you would like to offer:");
-			double itemPrice = sc.nextDouble();
+			double itemPrice = iv.validateDouble(sc);
 			sc.nextLine();
 			
 			Items i = new Items();
@@ -75,7 +75,8 @@ public class CustomerMenu {
 	}
 	private void viewRemainingPayment(Scanner sc) {
 		Items item = new Items();
-		item.viewOwnedItems(User.currentUser.getId());
+		item.viewOwnedPayments(User.currentUser.getId());
+		
 		
 	}
 	
