@@ -1,4 +1,5 @@
 package com.revature.services;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import org.postgresql.util.PSQLException;
@@ -32,6 +33,11 @@ public class UserAuth {
 				return "User already exists";
 				}			
 		}
+		catch (IOException e) {				
+			if (e.getMessage().contains("duplicate key value")) {
+				return "User already exists";
+				}			
+		}
 		return created;
 	}
 	
@@ -44,6 +50,11 @@ public class UserAuth {
 			loggedUser = up.getUser(username);
 		} catch (SQLException e) {
 			return "Something went wrong";
+		}
+		catch (IOException e) {				
+			if (e.getMessage().contains("duplicate key value")) {
+				return "User already exists";
+				}			
 		}
 		// user exists, but still need to check if password match.
 		if (loggedUser != null) {

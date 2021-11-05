@@ -11,7 +11,7 @@ public class Driver {
 //	As an employee, I can add an item to the shop.
 //	As an employee, I can accept or reject a pending offer for an item.
 //	As an employee, I can remove an item from the shop.
-//	As an employee, I can view all payments.
+//	As an employee, I can view all payments. <--??
 //
 //
 //

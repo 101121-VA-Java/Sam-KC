@@ -70,12 +70,13 @@ public class CustomerMenu {
 	
 }
 	private void viewOwnedItems(Scanner sc) {
-		//TODO: Query items and display them
-		System.out.println("~ owned item list~");
+		Items item = new Items();
+		item.viewOwnedItems(User.currentUser.getId());
 	}
 	private void viewRemainingPayment(Scanner sc) {
-		//TODO: Query items and display them
-		System.out.println("~ Paymenet Remaining ~");
+		Items item = new Items();
+		item.viewOwnedItems(User.currentUser.getId());
+		
 	}
 	
 	

@@ -1,8 +1,10 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.revature.models.Item;
+import com.revature.models.Offers;
 import com.revature.services.Items;
 
 public class EmployeeMenu {
@@ -64,25 +66,60 @@ public class EmployeeMenu {
 		
 		Item g = new Item(brand, model, battery, fdd, cond);		
 		Items item = new Items();
-		item.addItem(g);
+		if (
+		item.addItem(g)
+		== false) {
+			System.out.println("Could not add item");
+		}
 		
 		
 		
 	}
 	private void approveOffers(Scanner sc) {		
+		Items item = new Items();
+		ArrayList<Offers> listOffers = item.getPendingOffers();
+		System.out.println("Select offer ID to approve/reject");
+		int offerId = sc.nextInt();
+		sc.nextLine();
+		System.out.println("Approve or Reject Offer?");
+		String approval = sc.nextLine();
+		if ( approval.equals("approve")) {
+			for (Offers o : listOffers) {
+				if (o.getItemId() == offerId) {
+					item.changeOfferStatus(offerId, true, o.getItemId());
+				}
+			}
+			
+		}
 		
-		//TODO: View offers.
-		System.out.println("~View offers~");
 	}
+	
+	//TODO : Solve foreign key constraint
 	private void removeItem(Scanner sc) {		
 		
-		//TODO: Remove Item.
-		System.out.println("~Remove item");
+		Items li = new Items();
+		ArrayList<Item> listitems = li.getItems();
+		if (listitems != null) {
+			for (Item i : listitems) {
+				System.out.println(i);
+			}
+			
+			System.out.println("Please select itemID to delete");
+			int itemNum = sc.nextInt();
+			sc.nextLine();
+			Items item = new Items();
+			item.removeItem(itemNum);
+		}
+		else {
+			System.out.println("Error retrieving data");
+		}
+		
 	}
+	
 	private void viewPayments(Scanner sc) {		
 		
-		//TODO: Display Payments.
-		System.out.println("Display Payments");
+		Items li = new Items();
+		li.viewAllPayments();
 	}
 	
 }
