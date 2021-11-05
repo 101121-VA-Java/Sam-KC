@@ -58,7 +58,7 @@ public class MenuController {
 		password = iv.validateString(sc, 3, 15);	
 
 		
-		User u = new User(name, username, password, UserType.EMPLOYEE);
+		User u = new User(name, username, password, UserType.CUSTOMER);
 		UserAuth ua = new UserAuth();
 		String returnVal = ua.register(u);
 		if (returnVal == "true") {
