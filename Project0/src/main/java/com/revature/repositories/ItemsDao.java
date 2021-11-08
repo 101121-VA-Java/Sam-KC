@@ -42,5 +42,6 @@ public interface ItemsDao {
 	
 	//System:
 	boolean rejectAllOffers(int itemId);
+	ArrayList<Offers> getWeeklyPayments() throws SQLException, IOException;
 	
 }

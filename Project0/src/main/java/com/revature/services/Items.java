@@ -119,6 +119,15 @@ public class Items {
 		}
 	}
 	
+	public void calculateWeeklyPayment() {
+		try {
+			displayWeeklyPayment(id.getWeeklyPayments());
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	//TODO: if null, print no payments
 	public void viewOwnedPayments(int userId) {
 		try {
@@ -133,6 +142,7 @@ public class Items {
 		int numLooped = 0;
 		for (Item i : list) {
 			System.out.println(i);
+			numLooped++;
 		}
 		if (numLooped == 0) {
 			System.out.println("0 Items to display");
@@ -153,10 +163,21 @@ public class Items {
 		int numLooped = 0;
 		for (Offers i : list) {
 			System.out.println(i);
+			numLooped++;
 		}
 		if (numLooped == 0) {
 			System.out.println("0 Items to display");
 		}
 	}
+	public void displayWeeklyPayment(ArrayList<Offers> list) {
+		double sales = 0;;
+		for (Offers i : list) {
+			sales += i.getOffer();			
+		}
+		System.out.println("Total of $" + sales + " sales in past 7 days.");
+
+	}
+	
+
 	
 }

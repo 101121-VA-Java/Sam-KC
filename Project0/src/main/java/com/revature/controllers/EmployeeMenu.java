@@ -19,7 +19,8 @@ public class EmployeeMenu {
 			System.out.println("2: Accept/Reject Offers.");
 			System.out.println("3: Remove an item from the shop.");
 			System.out.println("4: View all payments");
-			System.out.println("5: Go back to main menu");
+			System.out.println("5: View Weekly payment");
+			System.out.println("6: Go back to main menu");
 			
 			String input = sc.nextLine();
 			
@@ -37,6 +38,9 @@ public class EmployeeMenu {
 				viewPayments(sc);
 				break;
 			case "5":				
+				viewWeeklyPayments(sc);
+				break;
+			case "6":				
 				run = false;
 				break;
 			default:
@@ -93,7 +97,7 @@ public class EmployeeMenu {
 		}
 		}
 		else {
-			System.out.println("No offers have been made for any items.");
+			System.out.println("No offers have been made for any items by customers.");
 		}
 		
 	}
@@ -125,6 +129,11 @@ public class EmployeeMenu {
 		
 		Items li = new Items();
 		li.viewAllPayments();
+	}	
+	private void viewWeeklyPayments(Scanner sc) {		
+		
+		Items li = new Items();
+		li.calculateWeeklyPayment();
 	}	
 
 	

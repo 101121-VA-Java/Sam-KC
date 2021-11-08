@@ -61,12 +61,12 @@ public class itemsPostgres implements ItemsDao {
 		ps.setInt(2, offerId);
 		ps.executeUpdate();
 		if (approval) {
-			String sql2 = "delete from USER_OFFERS where itemid = ? and offerAccepted = ?";
+			String sql2 = "delete from USER_OFFERS where offerid = ? and offerAccepted = false";
 			PreparedStatement ps2 = conn.prepareStatement(sql2);
 			ps2.setInt(1, itemId);
-			ps2.setBoolean(2, false);
 			ps2.executeUpdate();
 		}
+
 	}
 
 	@Override
@@ -90,7 +90,13 @@ public class itemsPostgres implements ItemsDao {
 	@Override
 	public  ArrayList<Item> viewItems() throws SQLException, IOException {
 		conn = ConnectionUtil.getConnectionFromFile();
-		String sql = "SELECT * FROM ITEMS ;" ;
+		String sql = "select itemid, brand, model, batteryCapacity, facedetection, condition\r\n"
+				+ "from items i\r\n"
+				+ "except\r\n"
+				+ "select i.itemid, brand, model, batteryCapacity, facedetection, condition\r\n"
+				+ "from items i\r\n"
+				+ "join user_offers uo on uo.itemid = i.itemid\r\n"
+				+ "where uo.payment_made = false;" ;
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);		
 		ArrayList<Item> items = new ArrayList<Item>();
@@ -200,6 +206,24 @@ public class itemsPostgres implements ItemsDao {
 		}
 		
 		return items;
+	}
+
+	@Override
+	public ArrayList<Offers> getWeeklyPayments() throws SQLException, IOException {
+		conn = ConnectionUtil.getConnectionFromFile();
+		String sql = "SELECT * FROM USER_OFFERS where payment_made = 'true'"
+				+ " and date_created > DATE(NOW()) - INTERVAL '7' DAY ;" ;
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		ArrayList<Offers> offersAL = new ArrayList<Offers>();
+		while ( rs.next() ) {		
+			Offers o = new Offers(rs.getInt("offerid"), rs.getInt("userid"),
+					rs.getInt("itemid"), rs.getDouble("offer"), rs.getBoolean("offerAccepted"),
+					rs.getBoolean("payment_made"));
+			//o.(rs.getInt("itemid"));
+			offersAL.add(o);			
+		}
+		return offersAL;
 	}
 
 	
