@@ -29,17 +29,7 @@ public class Driver {
 	public static void main(String[] args) {
 
 		MenuController mc = new MenuController();
-		mc.mainMenu();
-		
-//		Scanner sc = new Scanner(System.in);
-//		InputValidator iv = new InputValidator();
-//		System.out.println("Enter a String");
-//		
-//		String teststr = iv.validateString(sc, 3, 5);
-//		System.out.println(teststr);
-//		System.out.println("Enter an int");
-//		int testInt = iv.validateInt(sc);
-//		System.out.println(testInt);
+		mc.mainMenu();		
 		
 	}
 

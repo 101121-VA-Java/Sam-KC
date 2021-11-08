@@ -76,6 +76,8 @@ public class EmployeeMenu {
 	private void approveOffers(Scanner sc) {		
 		Items item = new Items();
 		ArrayList<Offers> listOffers = item.getPendingOffers();
+		if (listOffers.size() != 0) {
+			
 		System.out.println("Select offer ID to approve/reject");
 		int offerId = iv.validateInt(sc);
 		sc.nextLine();
@@ -89,6 +91,10 @@ public class EmployeeMenu {
 			}
 			
 		}
+		}
+		else {
+			System.out.println("No offers have been made for any items.");
+		}
 		
 	}
 	
@@ -97,8 +103,8 @@ public class EmployeeMenu {
 		
 		Items li = new Items();
 		ArrayList<Item> listitems = li.getItems();
-		if (listitems != null) {
-			for (Item i : listitems) {
+		if (listitems.size() != 0) {			
+			for (Item i : listitems) {				
 				System.out.println(i);
 			}
 			
@@ -107,9 +113,10 @@ public class EmployeeMenu {
 			sc.nextLine();
 			Items item = new Items();
 			item.removeItem(itemNum);
+			System.out.println("Item deleted");
 		}
 		else {
-			System.out.println("Error retrieving data");
+			System.out.println("No items found.");
 		}
 		
 	}

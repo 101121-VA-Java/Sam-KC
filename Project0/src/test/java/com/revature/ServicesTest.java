@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import com.revature.models.Item;
 import com.revature.models.User;
 import com.revature.models.UserType;
 import com.revature.services.Items;
@@ -49,11 +50,33 @@ public class  ServicesTest {
 
 	@Order(1)	
 	@Test
-	public void addUser() {
-		User u = new User("name", "username", "password" , UserType.CUSTOMER);		
-		String expected = "true";
-		String actual = "";
+	public void addItem() {
+		Item i = new Item("Sony", "X15", 1200, false, "New");
+		boolean actual = itemService.addItem(i);
+		boolean expected = true;
 		assertEquals(expected, actual);
+	}
+	
+	@Order(2)	
+	@Test
+	public void getItems() {
+		boolean actual = false;
+		if (itemService.getItems() != null) {
+		actual = true;
+		}
+		boolean expected = true;
+		assertEquals(expected, actual);
+	}
+	
+	@Order(3)	
+	@Test
+	public void makeOffer() {
+	
+	}
+	@Order(4)	
+	@Test
+	public void weeklyPayment() {
+	
 	}
 	
 

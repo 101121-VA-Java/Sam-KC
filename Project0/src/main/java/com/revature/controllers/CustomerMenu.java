@@ -48,7 +48,7 @@ public class CustomerMenu {
 		
 		Items li = new Items();
 		ArrayList<Item> listitems = li.getItems();
-		if (listitems != null) {
+		if (listitems.size() != 0) {
 			for (Item i : listitems) {
 				System.out.println(i);
 			}
@@ -65,7 +65,7 @@ public class CustomerMenu {
 			
 		}
 		else {
-			System.out.println("Error retrieving items.");
+			System.out.println("No items have been added to the shop yet.");
 		}
 	
 }

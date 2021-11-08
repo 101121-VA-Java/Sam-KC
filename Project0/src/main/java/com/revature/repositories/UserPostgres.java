@@ -31,7 +31,7 @@ public class UserPostgres implements UserDao {
 		ps.setString(1, u.getName() );
 		ps.setString(2, u.getUsername());
 		ps.setString(3, u.getPassword());
-		ps.setString(4, userType);		
+		ps.setString(4, u.getUserType().toString());		
 		ps.executeUpdate();		
 
 	}

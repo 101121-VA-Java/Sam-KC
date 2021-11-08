@@ -130,18 +130,32 @@ public class Items {
 	}
 	
 	public void displayListItems(ArrayList<Item> list) {
+		int numLooped = 0;
 		for (Item i : list) {
 			System.out.println(i);
 		}
-	}
-	public void displayListPayments(ArrayList<Payments> list) {
-		for (Payments i : list) {
-			System.out.println(i);
+		if (numLooped == 0) {
+			System.out.println("0 Items to display");
 		}
 	}
+	public void displayListPayments(ArrayList<Payments> list) {
+		int numLooped = 0;
+		for (Payments i : list) {
+			System.out.println(i);
+			numLooped++;
+		}
+		if (numLooped == 0) {
+			System.out.println("0 Items to display");
+		}
+		
+	}
 	public void displayListOffers(ArrayList<Offers> list) {
+		int numLooped = 0;
 		for (Offers i : list) {
 			System.out.println(i);
+		}
+		if (numLooped == 0) {
+			System.out.println("0 Items to display");
 		}
 	}
 	

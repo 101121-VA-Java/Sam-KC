@@ -22,6 +22,47 @@ public class Payments {
 		return "Payments [itemId=" + itemId + ", customerName=" + customerName + ", brand=" + brand + ", model=" + model
 				+ ", paymentMade=" + paymentMade + "]";
 	}
+
+	public int getItemId() {
+		return itemId;
+	}
+
+	public void setItemId(int itemId) {
+		this.itemId = itemId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public boolean isPaymentMade() {
+		return paymentMade;
+	}
+
+	public void setPaymentMade(boolean paymentMade) {
+		this.paymentMade = paymentMade;
+	}
+	
 	
 	
 }
