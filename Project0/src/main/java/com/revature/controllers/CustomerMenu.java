@@ -57,7 +57,11 @@ public class CustomerMenu {
 				System.out.println(i);
 			}
 			
-			System.out.println("Please select itemID to make offer for:");
+			System.out.println("Would you like to make an offer? ");
+			boolean continueOffer = iv.validateBoolean(sc);
+			
+			if (continueOffer) {
+			System.out.println("Please select itemID to make offer for :");
 			int itemNum = iv.validateInt(sc);
 			//sc.nextLine();
 			System.out.println("Please enter the amount you would like to offer:");
@@ -70,6 +74,7 @@ public class CustomerMenu {
 		}
 		else {
 			System.out.println("No items have been added to the shop yet.");
+		}
 		}
 	
 }

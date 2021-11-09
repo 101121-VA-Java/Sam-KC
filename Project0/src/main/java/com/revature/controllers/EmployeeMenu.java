@@ -64,7 +64,7 @@ public class EmployeeMenu {
 		String brand = iv.validateString(sc, 1, 35);
 		System.out.println("Enter model name");
 		String model = iv.validateString(sc, 1, 35);	
-		System.out.println("Enter battery Capacity");
+		System.out.println("Enter battery Capacity (mAh)");
 		int battery = iv.validateInt(sc);
 		sc.nextLine();
 		System.out.println("Does it support face detection?");

@@ -98,7 +98,7 @@ public class itemsPostgres implements ItemsDao {
 				+ "select i.itemid, brand, model, batteryCapacity, facedetection, condition\r\n"
 				+ "from items i\r\n"
 				+ "join user_offers uo on uo.itemid = i.itemid\r\n"
-				+ "where uo.payment_made = false;" ;
+				+ "where uo.offeraccepted = true;" ;
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);		
 		ArrayList<Item> items = new ArrayList<Item>();
@@ -152,9 +152,11 @@ public class itemsPostgres implements ItemsDao {
 		
 		// get brand, model, batterycap , facedet, cond, from offer id where offer accepted = true
 		
-		String sql = "select distinct i.brand, i.model, i.batteryCapacity,"
-				+ "i.facedetection, i.Condition, i.itemid from "
-				+ "items i join USER_OFFERS o on o.userid =" + userId +  "where o.offerAccepted = true;" ;
+//		String sql = "select distinct i.brand, i.model, i.batteryCapacity,"
+//				+ "i.facedetection, i.Condition, i.itemid from "
+//				+ "items i join USER_OFFERS o on o.userid =" + userId +  "where o.offerAccepted = true;" ;
+		String sql = "select * from user_offers uo join users u on uo.userid "
+				+ "=u.userid join items i on i.itemid  = uo.itemid where uo.offerAccepted = true;" ;	
 		
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);		
@@ -176,8 +178,11 @@ public class itemsPostgres implements ItemsDao {
 		conn = ConnectionUtil.getConnectionFromFile();		
 		
 		
+//		String sql = "select * from user_offers uo join users u on uo.userid "
+//				+ "=u.userid join items i on i.itemid  = uo.itemid;" ;	
 		String sql = "select * from user_offers uo join users u on uo.userid "
-				+ "=u.userid join items i on i.itemid  = uo.itemid;" ;		
+				+ "=u.userid join items i on i.itemid  = uo.itemid where uo.payment_made = true;" ;	
+
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);		
 		ArrayList<Payments> items = new ArrayList<Payments>();
@@ -196,7 +201,8 @@ public class itemsPostgres implements ItemsDao {
 		
 		
 		String sql = "select * from user_offers uo join users u on uo.userid"
-				+ " =u.userid join items i on i.itemid  = uo.itemid where uo.payment_made = false;" ;
+				+ " =u.userid join items i on i.itemid  = uo.itemid where uo.payment_made = false"
+				+ " and uo.offeraccepted = true;" ;
 		
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);		
