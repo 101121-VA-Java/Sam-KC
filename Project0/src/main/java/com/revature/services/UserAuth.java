@@ -9,9 +9,11 @@ import com.revature.repositories.UserDao;
 //import com.revature.repositories.UserDaoList;
 import com.revature.repositories.UserPostgres;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class UserAuth {
-
+	private static Logger log = LogManager.getRootLogger();
 	private UserDao ud;
 	private UserPostgres up;
 	//private UserDaoList ul;
@@ -47,10 +49,12 @@ public class UserAuth {
 		try {
 			loggedUser = up.getUser(username);
 		} catch (SQLException e) {
+			log.fatal("Fatal error during login.");
 			return "Something went wrong";
 		}
 		catch (IOException e) {				
 			if (e.getMessage().contains("duplicate key value")) {
+				log.info("User tried to sign up with existing username");
 				return "User already exists";
 				}			
 		}

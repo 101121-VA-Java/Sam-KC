@@ -5,7 +5,10 @@ import com.revature.controllers.MenuController;
 import com.revature.repositories.UserPostgres;
 import java.util.Scanner;
 
+
+
 public class Driver {
+
 	
 //	As a user, I can login.
 //	As a user, I can register for a customer account.
@@ -26,11 +29,11 @@ public class Driver {
 //	As the system, I reject all other pending offers for an item when an offer is accepted.
 //	As the system, I can calculate the weekly payment.
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 
 		MenuController mc = new MenuController();
 		mc.mainMenu();		
-		
+
 	}
 
 }

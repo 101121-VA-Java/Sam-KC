@@ -15,7 +15,7 @@ public class CustomerMenu {
 		boolean run = true;
 		
 		while(run) {
-			System.out.println("Please select an option:");
+			System.out.println("Please select an option: (Logged in as: " + User.currentUser.getUsername()  + ")"  );
 			System.out.println("1: View avaliable items / Make Offer.");
 			System.out.println("2: View items I own.");
 			System.out.println("3: View remaining payments.");

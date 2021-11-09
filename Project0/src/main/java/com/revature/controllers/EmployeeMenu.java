@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.revature.models.Item;
 import com.revature.models.Offers;
+import com.revature.models.User;
 import com.revature.services.Items;
 
 public class EmployeeMenu {
@@ -15,7 +16,7 @@ public class EmployeeMenu {
 		boolean run = true;
 		
 		while(run) {
-			System.out.println("Please select an option:");
+			System.out.println("Please select an option: (Logged in as: " + User.currentUser.getUsername() + ")" );
 			System.out.println("1: Add an item to the shop.");
 			System.out.println("2: Accept/Reject Offers.");
 			System.out.println("3: Remove an item from the shop.");
