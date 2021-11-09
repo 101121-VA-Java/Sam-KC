@@ -80,7 +80,9 @@ public class itemsPostgres implements ItemsDao {
 	}
 
 
-
+	
+	
+	// No actual need to create this. removeItem is utilized in methods to reject all offers.
 	@Override
 	public boolean rejectAllOffers(int itemId) {
 		// TODO Auto-generated method stub
@@ -227,10 +229,37 @@ public class itemsPostgres implements ItemsDao {
 	}
 
 	
+	// --------------------------------- BONUS ------------------------------------------------
+	@Override
+	public void addItemWithImage(Item i, String imgUrl) throws SQLException, IOException {
+		conn = ConnectionUtil.getConnectionFromFile();
+		String sql = "INSERT INTO ITEMS (brand, model, batteryCapacity, facedetection,"
+				+ " Condition, image_url )VALUES"
+				+ "  ( ?, ?, ?, ?, ?, ? );";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1,i.getBrand() );
+		ps.setString(2, i.getModel());
+		ps.setInt(3, i.getBatteryCapacity() );
+		ps.setBoolean(4, i.isFaceDetection());
+		ps.setString(5, i.getCondition());
+		ps.setString(6, imgUrl);
+		ps.executeUpdate();
+		
+	}
 
+	@Override
+	public String viewItemImage(int itemId) throws SQLException, IOException {
+		conn = ConnectionUtil.getConnectionFromFile();
+		String sql = "SELECT * FROM ITEMS WHERE itemid = " + itemId +" ;" ;
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);		
+		while ( rs.next() ) {	
+			
+		return rs.getString("image_url");
+		}
+		return "none";}
 
-
-	
+	// --------------------------------- BONUS ------------------------------------------------
 
 
 

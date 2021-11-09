@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.revature.controllers.ImageViewer;
 import com.revature.models.Item;
 import com.revature.models.Offers;
 import com.revature.models.Payments;
@@ -178,6 +179,37 @@ public class Items {
 
 	}
 	
+	
+	// --------------------------------- BONUS ------------------------------------------------
+
+	public boolean addItemWithImage(Item i, String imgUrl) {
+		
+		try {
+			id.addItemWithImage(i, imgUrl);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;		
+	}
+	
+	public void viewItemImage(int itemId) {
+
+		try {
+			ImageViewer.viewImage(id.viewItemImage(itemId));
+			
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	// --------------------------------- BONUS ------------------------------------------------
 
 	
 }

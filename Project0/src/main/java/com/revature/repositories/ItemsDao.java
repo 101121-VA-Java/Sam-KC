@@ -44,4 +44,10 @@ public interface ItemsDao {
 	boolean rejectAllOffers(int itemId);
 	ArrayList<Offers> getWeeklyPayments() throws SQLException, IOException;
 	
+	
+	//BONUS
+	void addItemWithImage(Item i, String imgUrl) throws SQLException, IOException;
+	
+	String viewItemImage(int itemId) throws SQLException, IOException;
+	
 }

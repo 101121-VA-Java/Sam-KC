@@ -9,6 +9,7 @@ import com.revature.services.Items;
 
 public class EmployeeMenu {
 	InputValidator iv = new InputValidator();
+	FileUpload uf = new FileUpload();
 	public void employeeMenu(Scanner sc) {
 		
 		boolean run = true;
@@ -21,6 +22,7 @@ public class EmployeeMenu {
 			System.out.println("4: View all payments");
 			System.out.println("5: View Weekly payment");
 			System.out.println("6: Go back to main menu");
+			System.out.println("7: Add an item to the shop with image (Bonus feature)");
 			
 			String input = sc.nextLine();
 			
@@ -42,6 +44,9 @@ public class EmployeeMenu {
 				break;
 			case "6":				
 				run = false;
+				break;
+			case "7":				
+				addItemWithImage(sc);
 				break;
 			default:
 				System.out.println("Invalid input.");
@@ -135,6 +140,45 @@ public class EmployeeMenu {
 		Items li = new Items();
 		li.calculateWeeklyPayment();
 	}	
+	
+	//BONUS
+	private void addItemWithImage(Scanner sc) {		
+		
+		
+		System.out.println("Enter brand name");
+		String brand = iv.validateString(sc, 1, 35);
+		System.out.println("Enter model name");
+		String model = iv.validateString(sc, 1, 35);	
+		System.out.println("Enter battery Capacity");
+		int battery = iv.validateInt(sc);
+		sc.nextLine();
+		System.out.println("Does it support face detection?");
+		boolean fd = iv.validateBoolean(sc);
+		System.out.println("Enter condition");
+		String cond = iv.validateString(sc, 1, 35);				
+		Item g = new Item(brand, model, battery, fd, cond);		
+		Items item = new Items();
+		
+		boolean errors = false;
+		String imgUrl = "";
+		try {
+			imgUrl = uf.postImg();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			errors = true;
+			e.printStackTrace();
+		}
+		
+		if (errors == false) {
+		if (item.addItemWithImage(g, imgUrl )== false) {
+			System.out.println("Could not add item");
+		}
+		else {
+			System.out.println("Item added to shop");
+		}
+		}
+		else { System.out.println("Something went wrong 101"); }
+	}
 
 	
 }

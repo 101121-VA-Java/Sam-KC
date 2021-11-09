@@ -20,6 +20,7 @@ public class CustomerMenu {
 			System.out.println("2: View items I own.");
 			System.out.println("3: View remaining payments.");
 			System.out.println("4: Go back");
+			System.out.println("5: View item image. (Bonus)");
 			
 			String input = sc.nextLine();
 			
@@ -35,6 +36,9 @@ public class CustomerMenu {
 				break;
 			case "4":				
 				run = false;
+				break;
+			case "5":				
+				viewItemImage(sc);
 				break;
 			default:
 				System.out.println("Invalid input.");
@@ -79,6 +83,28 @@ public class CustomerMenu {
 		
 		
 	}
+	
+	
+	private void viewItemImage(Scanner sc) {
+		
+		Items li = new Items();
+		ArrayList<Item> listitems = li.getItems();
+		if (listitems.size() != 0) {
+			for (Item i : listitems) {
+				System.out.println(i);
+			}
+			
+			System.out.println("Please select itemID you want to view:");
+			int itemNum = iv.validateInt(sc);
+			
+			li.viewItemImage(itemNum);
+			
+		}
+		else {
+			System.out.println("No items have been added to the shop yet.");
+		}
+	
+}
 	
 	
 }
