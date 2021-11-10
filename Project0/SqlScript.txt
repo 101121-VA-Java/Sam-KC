@@ -1,0 +1,27 @@
+CREATE TABLE USERS (
+    userid SERIAL PRIMARY KEY,
+    name       varchar(50) not null,
+    username   varchar(40) not null UNIQUE,
+    password   varchar(40) not null,
+    userType   varchar(40) not null
+);
+
+CREATE TABLE ITEMS (
+    itemid SERIAL PRIMARY KEY,
+    brand varchar(40) not null,
+    model varchar(40) not null,
+    batteryCapacity int, 
+    facedetection boolean ,
+    Condition varchar(40),
+    image_url varchar(800)
+);
+
+CREATE TABLE USER_OFFERS (    
+    offerid SERIAL PRIMARY KEY,
+    userid int REFERENCES USERS (userid),
+    itemid int REFERENCES ITEMS (itemid),
+    offer decimal,
+    offerAccepted boolean default false,
+    payment_made boolean default false,
+    date_created date not null default CURRENT_DATE
+);
