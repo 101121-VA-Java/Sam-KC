@@ -26,12 +26,12 @@ public class Items {
 		try {
 			id.addItem(i);
 		} catch (SQLException e) {
-			log.fatal("Fatal error while trying to add item.");
+			log.error("Fatal error while trying to add item.");
 			e.printStackTrace();
 			return false;
 		}
 		catch (IOException e) {
-			log.fatal("Fatal error while trying to add item.");
+			log.error("Fatal error while trying to add item.");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -47,12 +47,12 @@ public class Items {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to get item.");
+			log.error("Fatal error while trying to get item.");
 			e.printStackTrace();
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to get item.");
+			log.error("Fatal error while trying to get item.");
 			e.printStackTrace();
 		}
 		
@@ -69,7 +69,7 @@ public class Items {
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to make offer.");
+			log.error("Fatal error while trying to make offer.");
 			e.printStackTrace();
 		}
 	}
@@ -81,7 +81,7 @@ public class Items {
 			return id.getPendingOffers();
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to get pending offer.");
+			log.error("Fatal error while trying to get pending offer.");
 			e.printStackTrace();
 		}
 		return null;
@@ -93,7 +93,7 @@ public class Items {
 			System.out.println("item status changed");
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to change offer status.");
+			log.error("Fatal error while trying to change offer status.");
 			e.printStackTrace();
 		}
 	}
@@ -102,7 +102,7 @@ public class Items {
 			id.removeItem(itemId);
 		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to remove item.");
+			log.error("Fatal error while trying to remove item.");
 			e.printStackTrace();
 		}
 	}
@@ -112,12 +112,12 @@ public class Items {
 			displayListItems(id.viewOwnedItems(userId));		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to view owned item.");
+			log.error("Fatal error while trying to view owned item.");
 			e.printStackTrace();
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to view owned item.");
+			log.error("Fatal error while trying to view owned item.");
 			e.printStackTrace();
 		}		
 
@@ -128,7 +128,7 @@ public class Items {
 			displayListPayments(id.viewAllPayments());
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to view all payment.");
+			log.error("Fatal error while trying to view all payment.");
 			e.printStackTrace();
 		}
 	}
@@ -138,7 +138,7 @@ public class Items {
 			displayWeeklyPayment(id.getWeeklyPayments());
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to calculate Weekly Payment.");
+			log.error("Fatal error while trying to calculate Weekly Payment.");
 			e.printStackTrace();
 		}
 	}
@@ -149,7 +149,7 @@ public class Items {
 			displayListPayments(id.viewOwnedPayments(userId));
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
-			log.fatal("Fatal error while trying to view owned payment.");
+			log.error("Fatal error while trying to view owned payment.");
 			e.printStackTrace();
 		}
 	}

@@ -83,7 +83,7 @@ public class EmployeeMenu {
 		}
 			
 	}
-	private void approveOffers(Scanner sc) {		
+	private void approveOffers(Scanner sc) {	
 		Items item = new Items();
 		ArrayList<Offers> listOffers = item.getPendingOffers();
 		if (listOffers.size() != 0) {
@@ -95,10 +95,16 @@ public class EmployeeMenu {
 		boolean approval = iv.validateBoolean(sc);		
 		if ( approval) {
 			for (Offers o : listOffers) {
-				if (o.getItemId() == offerId) {
+				if (o.getOfferId() == offerId) {					
 					item.changeOfferStatus(offerId, true, o.getItemId());
 				}
 			}
+//			for (Offers o : listOffers) {
+//				if (o.getItemId() == offerId) {
+//					System.out.println("testing");
+//					item.changeOfferStatus(offerId, true, o.getItemId());
+//				}
+//			}
 			
 		}
 		}

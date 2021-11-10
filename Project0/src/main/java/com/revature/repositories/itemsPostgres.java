@@ -53,6 +53,8 @@ public class itemsPostgres implements ItemsDao {
 
 	@Override
 	public void changeOfferStatus(int offerId, boolean approval, int itemId) throws IOException, SQLException{
+		
+		System.out.println(approval);
 		conn = ConnectionUtil.getConnectionFromFile();
 		String sql = "update USER_OFFERS set offerAccepted = ? "
 				+ "where offerid = ?;";

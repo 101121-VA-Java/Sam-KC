@@ -49,7 +49,7 @@ public class UserAuth {
 		try {
 			loggedUser = up.getUser(username);
 		} catch (SQLException e) {
-			log.fatal("Fatal error during login.");
+			log.error("Fatal error during login.");
 			return "Something went wrong";
 		}
 		catch (IOException e) {				
