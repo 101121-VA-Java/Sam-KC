@@ -1,0 +1,13 @@
+table{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.truth:hover{
+    background-color: green;
+    color: white;
+}
+
+.lie:hover{
+    background-color: red;
+}

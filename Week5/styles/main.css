@@ -1,0 +1,26 @@
+ul {
+  list-style-type: none;
+  margin: 10;
+  padding: 0;
+  overflow: hidden;
+}
+
+li {
+  display: inline;
+  border: 2px solid DodgerBlue
+
+}
+li a {
+  padding: 8px;
+  background-color: #dddddd;
+}
+
+nav{
+    margin: 0 auto;
+    text-align: center;
+    
+}
+
+body{
+	background-color:powderblue
+}
