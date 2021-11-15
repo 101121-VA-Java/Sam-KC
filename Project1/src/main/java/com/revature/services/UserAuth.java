@@ -13,11 +13,14 @@ public class UserAuth {
 		ud = new UserPostgres();
 	}
 	
+	// employees and manager
 	public boolean loginUser(User u) {
 		if (ud.loginUser(u)) {
 			return true;
 		}
 		return false;		
 	}
+	
+
 	
 }

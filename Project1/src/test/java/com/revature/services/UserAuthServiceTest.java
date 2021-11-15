@@ -14,7 +14,7 @@ import com.revature.repositories.UserDao;
 
 
 @ExtendWith(MockitoExtension.class)
-public class UserAuthService {
+public class UserAuthServiceTest {
 	
 	@Mock
 	private UserDao ud;
@@ -24,6 +24,7 @@ public class UserAuthService {
 	
 	@Test
 	public void loginUserTest() {
+		
 		Mockito.when(ud.loginUser(null)).thenReturn(true);
 		boolean expected = true;
 		boolean actual = ua.loginUser(null);
