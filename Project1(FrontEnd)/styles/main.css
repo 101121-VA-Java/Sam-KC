@@ -1,4 +1,12 @@
-
-body{
+/*
+body {
 	background-color:powderblue
+
+}*/
+
+#background001 {
+	position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+	background: linear-gradient(180deg, rgba(182,208,226,1) 0%, rgba(54,63,69,1) 99%);
+
 }
