@@ -1,12 +1,25 @@
+PostgreSQL
+
+To start Postgres :
+pg_ctl start
+
+To stop Postgres :
+pg_ctl stop
+
+Bash:
+bg	Send to background
+fg	Send job to foreground
+pgrep	List processes by name
+top	List processes running on the system
+kill	Kill a process by specifying its PID
+killall	Kill processes by name
+
+Git:
 To revert:
-
 git revert <commit>
-
 i
-
 Esc - > :q!
 
-
-
+// use with caution
 Rewind history:
 git push -f origin last_known_good_commit:branch_name
