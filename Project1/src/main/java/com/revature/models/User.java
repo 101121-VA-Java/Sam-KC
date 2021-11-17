@@ -8,6 +8,18 @@ public class User {
 	private String lastName;
 	private String email;
 	private UserRoles role;
+	
+	
+	
+	public User(String username, String password, String firstName, String lastName, String email, UserRoles role) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.role = role;
+	}
 	public int getUserId() {
 		return userId;
 	}

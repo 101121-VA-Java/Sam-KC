@@ -12,6 +12,17 @@ public class Reimbursement {
 	private User resolver; 	
 	private ReimbursementStatus status;	
 	private ReimbursementType type;
+		
+	
+	public Reimbursement(double amount, String submittedDate, User author, ReimbursementStatus status,
+			ReimbursementType type) {
+		super();
+		this.amount = amount;
+		this.submittedDate = submittedDate;
+		this.author = author;
+		this.status = status;
+		this.type = type;
+	}
 	public int getId() {
 		return id;
 	}
