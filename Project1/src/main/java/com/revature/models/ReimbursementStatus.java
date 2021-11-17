@@ -11,6 +11,22 @@ public class ReimbursementStatus {
 		this.id = id;
 		this.status = status;
 	}
+	public ReimbursementStatus(int id) {
+		super();
+		this.id = id;
+		if (id == 1) {
+		status = "pending";
+		}
+		else if (id == 2)  {
+		status = "approved";
+		}
+		else if (id == 3) {
+		status = "denied";
+		}
+		else {
+			//log here
+		}
+	}
 	
 	public int getId() {
 		return id;

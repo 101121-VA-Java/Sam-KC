@@ -30,8 +30,8 @@ public class EmployeeDaoTest {
 	public void submitReimbRequest() {		
 		
 		UserRoles role = new UserRoles(1, "EMPLOYEE");		
-		ReimbursementType type = new ReimbursementType(1, "TRAVEL");
-		ReimbursementStatus status = new ReimbursementStatus(1, "Created");
+		ReimbursementType type = new ReimbursementType(1);
+		ReimbursementStatus status = new ReimbursementStatus(1);
 		
 		User user = new User("username", "password", "firstname",
 				"lastname", "email", role);		

@@ -12,7 +12,7 @@ public class UserAuthController {
     	UserAuth ua = new UserAuth();
     	User u = ctx.bodyAsClass(User.class);   	
     	String authResult = ua.loginUser(u.getUsername(), u.getPassword());
-    
+    	ctx.result(authResult);
     }
     
 
