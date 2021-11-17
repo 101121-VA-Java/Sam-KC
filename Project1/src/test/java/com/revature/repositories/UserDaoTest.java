@@ -32,7 +32,7 @@ public class UserDaoTest {
 		boolean expected = true;
 		boolean actual = false;
 		try {
-			User u = ud.getUser("user321");
+			User u = ud.getUser("user321");			
 			actual = true;
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block

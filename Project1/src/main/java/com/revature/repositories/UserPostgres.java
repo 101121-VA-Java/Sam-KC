@@ -30,10 +30,14 @@ public class UserPostgres implements UserDao {
 			int roleId = rs.getInt("user_role_id");
 			String userRole = rs.getString("user_role");
 			//getting the user values
-			String u_username = rs.getString("u_username");			
+			String u_username = rs.getString("u_username");		
+			String u_password = rs.getString("u_password");	
+			String u_firstName = rs.getString("u_firstname");	
+			String u_lastName = rs.getString("u_lastname");	
+			String u_email = rs.getString("u_email");	
 			UserRoles role = new UserRoles(roleId, userRole);
 			
-			u = new User(null, null, null, null, null, null);			
+			u = new User(u_username, u_password, u_firstName, u_lastName, u_email, role);			
 			return u;
 		}
 
