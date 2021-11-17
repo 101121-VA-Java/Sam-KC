@@ -3,6 +3,9 @@ package com.revature.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -10,6 +13,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.revature.models.ReimbursementStatus;
+import com.revature.models.ReimbursementType;
+import com.revature.models.User;
+import com.revature.models.UserRoles;
 import com.revature.repositories.UserDao;
 
 
@@ -24,10 +31,17 @@ public class UserAuthServiceTest {
 	
 	@Test
 	public void loginUserTest() {
-		
-		Mockito.when(ud.loginUser(null)).thenReturn(true);
-		boolean expected = true;
-		boolean actual = ua.loginUser(null);
+		UserRoles role = new UserRoles(1, "EMPLOYEE");			
+		User user = new User("user321", "pass321", "firstname",
+				"lastname", "email", role);	
+		try {
+			Mockito.when(ud.getUser("user321")).thenReturn(user);
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String expected = "loggedin";
+		String actual = ua.loginUser("user321", "pass321");
 		assertEquals(expected, actual);
 	}
 	
