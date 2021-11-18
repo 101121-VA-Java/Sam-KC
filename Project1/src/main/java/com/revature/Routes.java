@@ -13,20 +13,13 @@ public class Routes {
 	}).start(80);
 	
 	
-	app.routes(() -> {
+	app.routes(() -> {					
+		post(UserAuthController::loginUser); //An Employee/Manager can login
 		
-		path("auth", ()->{			
-				post(UserAuthController::loginUser); //An Employee/Manager can login
-		});
 		path("account", ()->{	
-			path("",() ->{ //An Employee can view their information
-				get(EmployeeController::updateInfo);
+			get(EmployeeController::updateInfo);
+			put(EmployeeController::updateInfo);	
 			});
-			path("",() ->{ //An Employee can update their information
-				put(EmployeeController::updateInfo);
-			});
-			
-	});
 		
 		path("reimbursement", ()->{	 			
 			post(EmployeeController::submitReimbRequest); //An Employee can submit a reimbursement request	
