@@ -12,7 +12,7 @@ public interface UserDao {
 	
 	//employees & manager
 	User getUser (String u) throws  SQLException, IOException;
-	
+	User getUserByEmail (String u) throws  SQLException, IOException;
 
 
 }

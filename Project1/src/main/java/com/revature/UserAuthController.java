@@ -4,6 +4,7 @@ import com.revature.models.User;
 import com.revature.services.UserAuth;
 
 import io.javalin.http.Context;
+import io.javalin.http.HttpCode;
 
 public class UserAuthController {
 	
@@ -11,8 +12,14 @@ public class UserAuthController {
     	
     	UserAuth ua = new UserAuth();
     	User u = ctx.bodyAsClass(User.class);   	
-    	String authResult = ua.loginUser(u.getUsername(), u.getPassword());
+    	String authResult = ua.loginUserByEmail(u.getEmail(), u.getPassword());
     	ctx.result(authResult);
+    	if (authResult.equals("loggedin")) {
+    	ctx.status(HttpCode.OK);
+    	}
+    	else {
+    	ctx.status(HttpCode.UNAUTHORIZED);
+    	}
     }
     
 

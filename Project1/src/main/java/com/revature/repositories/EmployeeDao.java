@@ -10,7 +10,7 @@ public interface EmployeeDao {
 	//employees
 	boolean submitReimbRequest(Reimbursement r);	
 	ArrayList<Reimbursement> viewPendingReimb(User u);	
-	Reimbursement viewResolvedReimb(User u);
+	ArrayList<Reimbursement> viewResolvedReimb(User u);
 		
 
 }

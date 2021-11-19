@@ -44,7 +44,20 @@ public class UserAuthServiceTest {
 		String actual = ua.loginUser("user321", "pass321");
 		assertEquals(expected, actual);
 	}
-	
+	public void loginUserByEmailTest() {
+		UserRoles role = new UserRoles(1, "EMPLOYEE");			
+		User user = new User("user321", "pass321", "firstname",
+				"lastname", "email", role);	
+		try {
+			Mockito.when(ud.getUserByEmail("user321")).thenReturn(user);
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String expected = "loggedin";
+		String actual = ua.loginUser("user321", "pass321");
+		assertEquals(expected, actual);
+	}
 
 
 }

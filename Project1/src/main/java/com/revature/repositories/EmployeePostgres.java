@@ -7,10 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.management.relation.Role;
+
 import com.revature.models.Reimbursement;
 import com.revature.models.ReimbursementStatus;
 import com.revature.models.ReimbursementType;
 import com.revature.models.User;
+import com.revature.models.UserRoles;
 import com.revature.util.ConnectionUtil;
 
 public class EmployeePostgres implements EmployeeDao {
@@ -37,37 +40,64 @@ public class EmployeePostgres implements EmployeeDao {
 		
 	}
 
+	/**
+	 * DAO method to view pending reimbs.
+	 * @param User object
+	 * @return a List of Reimbs or null if none.
+	 */
 	@Override
 	public ArrayList<Reimbursement> viewPendingReimb(User u) {
-		String sql = "select * from ers_reimb where reimb_author "
-				+ "= ? and reimb_status_id = '1' ;";
+		String sql = "select * from ers_reimb r\r\n"
+				+ "join ERS_USERS u on u.u_id = r.reimb_author \r\n"
+				+ "where u.u_username = ? and r.reimb_status_id = 1;";
+		ArrayList<Reimbursement> pendingList = new ArrayList<Reimbursement>();
 		
 		try (Connection conn = ConnectionUtil.getConnectionFromFile()) {
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.setString(1, u.getUsername());
 		ResultSet rs = ps.executeQuery();
-		ArrayList<Reimbursement> pendingList = new ArrayList<Reimbursement>();
+		
 		while ( rs.next() ) {		
-			ReimbursementStatus reimbStatus = new ReimbursementStatus(rs.getInt("reimb_status_id"));
-			ReimbursementType reimbType = new ReimbursementType(rs.getInt("reimb_type_id"));
 			
-			//TODO: Finish this up.
-			Reimbursement reimb = new Reimbursement(0, sql, u, null, null);
+			Reimbursement reimb = new Reimbursement(rs.getDouble("reimb_amount"), rs.getString("reimb_submitted"),
+					u, rs.getInt("reimb_status_id"), rs.getInt("reimb_type_id"));
+			reimb.setId(rs.getInt("reimb_id"));
+			pendingList.add(reimb);
 		}
 		}
 		catch (SQLException | IOException e) {			
 			e.printStackTrace();			
 		}
-		return null;
+		return pendingList;
 	
 		
 	}
 		
 
 	@Override
-	public Reimbursement viewResolvedReimb(User u) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Reimbursement> viewResolvedReimb(User u) {
+		String sql = "select * from ers_reimb r\r\n"
+				+ "join ERS_USERS u on u.u_id = r.reimb_author \r\n"
+				+ "where u.u_username = ? and r.reimb_status_id = 2;";
+		ArrayList<Reimbursement> pendingList = new ArrayList<Reimbursement>();
+		
+		try (Connection conn = ConnectionUtil.getConnectionFromFile()) {
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, u.getUsername());
+		ResultSet rs = ps.executeQuery();
+		
+		while ( rs.next() ) {		
+			
+			Reimbursement reimb = new Reimbursement(rs.getDouble("reimb_amount"), rs.getString("reimb_submitted"),
+					u, rs.getInt("reimb_status_id"), rs.getInt("reimb_type_id"));
+			reimb.setId(rs.getInt("reimb_id"));
+			pendingList.add(reimb);
+		}
+		}
+		catch (SQLException | IOException e) {			
+			e.printStackTrace();			
+		}
+		return pendingList;
 	}
 
 

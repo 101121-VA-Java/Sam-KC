@@ -29,21 +29,42 @@ public class EmployeeDaoTest {
 	@Test
 	public void submitReimbRequest() {		
 		
-		UserRoles role = new UserRoles(1, "EMPLOYEE");		
-		ReimbursementType type = new ReimbursementType(1);
-		ReimbursementStatus status = new ReimbursementStatus(1);
 		
 		User user = new User("username", "password", "firstname",
-				"lastname", "email", role);		
+				"lastname", "email", 1);		
 		user.setUserId(1);
 		double amount = 150;
 		Reimbursement reimb = new Reimbursement(amount, "11/16/2021"
-				, user, status, type);
-		
-		
+				, user, 1, 1);
+				
 		boolean actual = ed.submitReimbRequest(reimb);
 		boolean expected  = true;
 		assertEquals(expected, actual);
+		
+	}
+	
+	@Test
+	public void viewPendingReimbs() {		
+		User user = new User("user321", "password", "firstname",
+				"lastname", "email", 1);
+		boolean actual = false;
+		if (!ed.viewPendingReimb(user).isEmpty()) {
+			actual = true;
+		}
+		boolean expected = true;
+		assertEquals(expected,actual);		
+		
+	}
+	@Test
+	public void viewResolvedReimbs() {		
+		User user = new User("user321", "password", "firstname",
+				"lastname", "email", 1);
+		boolean actual = false;
+		if (!ed.viewResolvedReimb(user).isEmpty()) {
+			actual = true;
+		}
+		boolean expected = true;
+		assertEquals(expected,actual);		
 		
 	}
 	

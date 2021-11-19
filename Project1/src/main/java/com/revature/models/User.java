@@ -28,6 +28,15 @@ public class User implements Serializable {
 		this.email = email;
 		this.role = role;
 	}
+	public User(String username, String password, String firstName, String lastName, String email, int role) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.role = new UserRoles(role);
+	}
 	
 
 

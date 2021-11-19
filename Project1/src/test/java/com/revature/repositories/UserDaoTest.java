@@ -41,5 +41,19 @@ public class UserDaoTest {
 		}
 		assertEquals(expected, actual);
 	}
+	@Test
+	public void loginUserByEmailTest() {
+		boolean expected = true;
+		boolean actual = false;
+		try {
+			User u = ud.getUserByEmail("user321");			
+			actual = true;
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+		}
+		assertEquals(expected, actual);
+	}
 
 }

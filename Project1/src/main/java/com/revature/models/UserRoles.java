@@ -10,6 +10,21 @@ public class UserRoles {
 		this.roleId = roleId;
 		this.role = role;
 	}
+	public UserRoles(int id) {
+		switch (id) {
+		case 1:
+			role = "employee";
+			break;
+		case 2:
+			role = "manager";
+			break;
+		default:
+			role = "unknown";
+			// log here
+			break;		
+		}
+			
+	}
 	public int getRoleId() {
 		return roleId;
 	}

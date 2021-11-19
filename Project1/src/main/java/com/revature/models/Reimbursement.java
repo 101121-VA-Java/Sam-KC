@@ -14,6 +14,7 @@ public class Reimbursement {
 	private ReimbursementType type;
 		
 	
+
 	public Reimbursement(double amount, String submittedDate, User author, ReimbursementStatus status,
 			ReimbursementType type) {
 		super();
@@ -22,6 +23,15 @@ public class Reimbursement {
 		this.author = author;
 		this.status = status;
 		this.type = type;
+	}
+	public Reimbursement(double amount, String submittedDate, User author, int status,
+			int type) {
+		super();
+		this.amount = amount;
+		this.submittedDate = submittedDate;
+		this.author = author;
+		this.status = new ReimbursementStatus(status);
+		this.type = new ReimbursementType(type);
 	}
 	public int getId() {
 		return id;

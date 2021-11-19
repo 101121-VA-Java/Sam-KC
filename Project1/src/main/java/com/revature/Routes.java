@@ -10,16 +10,20 @@ public class Routes {
 	public void run() {
 	
 	Javalin app = Javalin.create( (config) -> {		
+		config.enableCorsForAllOrigins();
 	}).start(80);
 	
 	
-	app.routes(() -> {					
-		post(UserAuthController::loginUser); //An Employee/Manager can login
+	app.routes(() -> {
 		
-		path("account", ()->{	
-			get(EmployeeController::updateInfo);
-			put(EmployeeController::updateInfo);	
-			});
+		path("auth", ()->{			
+				post(UserAuthController::loginUser); //An Employee/Manager can login
+		});
+		path("account", ()->{				
+				get(EmployeeController::updateInfo); //An Employee can view their information
+				put(EmployeeController::updateInfo);  //An Employee can update their information
+			
+	});
 		
 		path("reimbursement", ()->{	 			
 			post(EmployeeController::submitReimbRequest); //An Employee can submit a reimbursement request	
