@@ -1,3 +1,7 @@
+//import { checkSession } from '/sessionJS.js';
+
+
+
 const btn = document.getElementById('loginbtn');
 
 
@@ -16,8 +20,20 @@ let password = document.getElementById("inputPassword").value;
        });
 
        let responsetext = await response.text();
-
+       if(response.status != 200){       
        alert(responsetext);
+       }
+       else {
+        if (responsetext == 1){            
+            window.location.replace("views/employee.html");
+        }
+        else {
+            alert(responsetext);
+            //window.location.replace("views/manager.html");
+        }
+       }
+
+
                
     }
     
