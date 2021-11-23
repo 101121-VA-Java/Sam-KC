@@ -13,13 +13,13 @@ public class User implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private UserRoles role;
+	private UserRole role;
 	
 	
 	public User() {
 		
 	}
-	public User(String username, String password, String firstName, String lastName, String email, UserRoles role) {
+	public User(String username, String password, String firstName, String lastName, String email, UserRole role) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -35,7 +35,7 @@ public class User implements Serializable {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.role = new UserRoles(role);
+		this.role = new UserRole(role);
 	}
 	
 
@@ -76,10 +76,10 @@ public class User implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public UserRoles getRole() {
+	public UserRole getRole() {
 		return role;
 	}
-	public void setRole(UserRoles role) {
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
 	

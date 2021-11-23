@@ -16,7 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.revature.models.ReimbursementStatus;
 import com.revature.models.ReimbursementType;
 import com.revature.models.User;
-import com.revature.models.UserRoles;
+import com.revature.models.UserRole;
 import com.revature.repositories.UserDao;
 
 
@@ -31,7 +31,7 @@ public class UserAuthServiceTest {
 	
 	@Test
 	public void loginUserTest() {
-		UserRoles role = new UserRoles(1, "EMPLOYEE");			
+		UserRole role = new UserRole(1, "EMPLOYEE");			
 		User user = new User("user321", "pass321", "firstname",
 				"lastname", "email", role);	
 		try {
@@ -45,7 +45,7 @@ public class UserAuthServiceTest {
 		assertEquals(expected, actual);
 	}
 	public void loginUserByEmailTest() {
-		UserRoles role = new UserRoles(1, "EMPLOYEE");			
+		UserRole role = new UserRole(1, "EMPLOYEE");			
 		User user = new User("user321", "pass321", "firstname",
 				"lastname", "email", role);	
 		try {

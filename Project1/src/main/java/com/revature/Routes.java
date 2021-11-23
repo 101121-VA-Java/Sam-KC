@@ -20,7 +20,7 @@ public class Routes {
 				post(UserAuthController::loginUser); //An Employee/Manager can login
 		});
 		path("account", ()->{				
-				get(EmployeeController::updateInfo); //An Employee can view their information
+				get(EmployeeController::viewInfo); //An Employee can view their information
 				put(EmployeeController::updateInfo);  //An Employee can update their information
 			
 	});
@@ -33,7 +33,7 @@ public class Routes {
 				path("all",() ->{
 				get(ManagerController::getAllPendingReimbursement); //A Manager can view all pending requests from all employees
 				});
-				path("{id}",() ->{ //An employee can view their pending requests
+				path("{username}",() ->{ //An employee can view their pending requests
 					get(EmployeeController::viewPendingRequest);
 				});
 			});

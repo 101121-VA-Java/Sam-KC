@@ -1,4 +1,6 @@
 package com.revature.services;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.revature.models.Reimbursement;
@@ -13,7 +15,7 @@ public class EmployeeService {
 	private EmployeeDao ed;
 	
 	
-	EmployeeService() {
+	public EmployeeService() {
 		super();
 		ed = new EmployeePostgres();
 	}
@@ -26,9 +28,27 @@ public class EmployeeService {
 		}
 	
 	
-	public void viewPendingReimb(User u) {
+	public ArrayList<Reimbursement> viewPendingReimb(User u) {
 		ArrayList<Reimbursement> reimbList = ed.viewPendingReimb(u);
+		return reimbList;
+		
+	}
+	public ArrayList<Reimbursement> viewResolvedReimb(User u) {
+		ArrayList<Reimbursement> reimbList = ed.viewResolvedReimb(u);
+		return reimbList;
 		
 	}
 	
+	public User viewAccountInfo(String username) {
+		UserPostgres up = new UserPostgres();
+		try {
+			return up.getUser(username);
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;		
+	}
+	
+
 }

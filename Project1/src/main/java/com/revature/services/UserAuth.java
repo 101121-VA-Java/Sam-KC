@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import com.revature.models.User;
+import com.revature.models.UserRole;
 import com.revature.repositories.UserDao;
 import com.revature.repositories.UserPostgres;
 
@@ -43,11 +44,11 @@ public class UserAuth {
 	}
 	
 	// employees and manager	
-	public String loginUserByEmail(String email, String password) {
+	public String loginUserByEmail(User u) {
 
 		User loggedUser = null;		
 		try {
-			loggedUser = ud.getUserByEmail(email);
+			loggedUser = ud.getUserByEmail(u.getEmail());
 		} catch (SQLException e) {			
 			return "Something went wrong";
 		}
@@ -58,14 +59,26 @@ public class UserAuth {
 		}
 		// user exists, but still need to check if password match.
 		if (loggedUser != null) {
-			if (loggedUser.getPassword().equals(password)) {
-				
+			if (loggedUser.getPassword().equals(u.getPassword())) {
+				UserRole ur = loggedUser.getRole();
+				u.setRole(ur);
 				return "loggedin";
 			}
 			else { return "Invalid Password." ; }			
 		}
 		else { return "Username does not exist.";}
 
+	}
+	
+	public User getUserbyEmail(String email) {
+		User u = null;
+		try {
+			u = ud.getUserByEmail(email);
+		}
+		catch (Exception e) {
+			return null;
+		};
+		return u;
 	}
 	
 }

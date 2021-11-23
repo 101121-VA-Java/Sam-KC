@@ -1,16 +1,16 @@
 package com.revature.models;
 
-public class UserRoles {
+public class UserRole {
 
 	private int roleId;
 	private String role;		
 	
-	public UserRoles(int roleId, String role) {
+	public UserRole(int roleId, String role) {
 		super();
 		this.roleId = roleId;
 		this.role = role;
 	}
-	public UserRoles(int id) {
+	public UserRole(int id) {
 		switch (id) {
 		case 1:
 			role = "employee";

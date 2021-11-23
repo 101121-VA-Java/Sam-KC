@@ -10,7 +10,7 @@ import java.sql.Statement;
 import javax.management.relation.Role;
 
 import com.revature.models.User;
-import com.revature.models.UserRoles;
+import com.revature.models.UserRole;
 import com.revature.util.ConnectionUtil;
 
 public class UserPostgres implements UserDao {
@@ -35,7 +35,7 @@ public class UserPostgres implements UserDao {
 			String u_firstName = rs.getString("u_firstname");	
 			String u_lastName = rs.getString("u_lastname");	
 			String u_email = rs.getString("u_email");	
-			UserRoles role = new UserRoles(roleId, userRole);
+			UserRole role = new UserRole(roleId, userRole);
 			
 			u = new User(u_username, u_password, u_firstName, u_lastName, u_email, role);			
 			return u;
@@ -64,7 +64,7 @@ public class UserPostgres implements UserDao {
 			String u_firstName = rs.getString("u_firstname");	
 			String u_lastName = rs.getString("u_lastname");	
 			String u_email = rs.getString("u_email");	
-			UserRoles role = new UserRoles(roleId, userRole);
+			UserRole role = new UserRole(roleId, userRole);
 			
 			u = new User(u_username, u_password, u_firstName, u_lastName, u_email, role);			
 			return u;

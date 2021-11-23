@@ -13,7 +13,7 @@ import com.revature.models.Reimbursement;
 import com.revature.models.ReimbursementStatus;
 import com.revature.models.ReimbursementType;
 import com.revature.models.User;
-import com.revature.models.UserRoles;
+import com.revature.models.UserRole;
 import com.revature.util.ConnectionUtil;
 
 public class EmployeePostgres implements EmployeeDao {
