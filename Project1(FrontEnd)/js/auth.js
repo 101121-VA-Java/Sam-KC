@@ -30,8 +30,10 @@ let password = document.getElementById("inputPassword").value;
             window.location.replace("views/employee.html");
         }
         else {
-            
+            let authToken = response.headers.get('authToken');
+            document.cookie = `authToken = ${authToken} ; expires=Thu, 18 Dec 2022 12:00:00 UTC; path=/`;    
             window.location.replace("views/manager.html");
+            
         }
        }
 
