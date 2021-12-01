@@ -17,7 +17,7 @@ public class Routes {
 	app.routes(() -> {
 		
 		path("auth", ()->{			
-				post(UserAuthController::loginUser); //An Employee/Manager can login
+				post(UserAuthController::loginUser); //An Employee/Manager can login ---
 		});
 		path("account", ()->{				
 				get(EmployeeController::viewInfo); //An Employee can view their information
@@ -42,7 +42,7 @@ public class Routes {
 				path("all",() ->{
 					get(ManagerController::getAllResolvedReimbursement);
 				});
-				path("{id}",() ->{ 
+				path("{username}",() ->{ 
 					get(EmployeeController::viewResolvedRequest); //An employee can view their resolved request
 				});
 				

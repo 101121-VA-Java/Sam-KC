@@ -79,9 +79,24 @@ public class UserPostgres implements UserDao {
 		return null;
 	}
 
-	public User updateUserInfo(User u) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean updateUserInfo(User u) {
+		String sql = "update ERS_USERS set u_firstname = ?, u_lastname = ?, u_password = ?, u_email = ?  where u_username = ?;";
+
+		try (Connection conn = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, u.getFirstName());
+			ps.setString(2, u.getLastName());
+			ps.setString(3, u.getPassword());
+			ps.setString(4, u.getEmail());
+			ps.setString(5, u.getUsername());
+			ps.executeUpdate();
+			return true;
+			
+		} catch (SQLException | IOException e) {			
+			e.printStackTrace();
+			return false;
+		}
+	
 	}
 
 	public User viewAllEmployees() {

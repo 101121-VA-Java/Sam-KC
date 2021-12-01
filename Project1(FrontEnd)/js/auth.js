@@ -30,8 +30,8 @@ let password = document.getElementById("inputPassword").value;
             window.location.replace("views/employee.html");
         }
         else {
-            alert(responsetext);
-            //window.location.replace("views/manager.html");
+            
+            window.location.replace("views/manager.html");
         }
        }
 

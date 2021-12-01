@@ -34,8 +34,8 @@ public class EmployeeDaoTest {
 				"lastname", "email", 1);		
 		user.setUserId(1);
 		double amount = 150;
-		Reimbursement reimb = new Reimbursement(amount, "11/16/2021"
-				, user, 1, 1);
+		Reimbursement reimb = new Reimbursement(amount, "11/16/2021",
+				"test" ,user, 1, 1);
 				
 		boolean actual = ed.submitReimbRequest(reimb);
 		boolean expected  = true;

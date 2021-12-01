@@ -24,11 +24,12 @@ public class Reimbursement {
 		this.status = status;
 		this.type = type;
 	}
-	public Reimbursement(double amount, String submittedDate, User author, int status,
+	public Reimbursement(double amount, String submittedDate, String description, User author, int status,
 			int type) {
 		super();
 		this.amount = amount;
 		this.submittedDate = submittedDate;
+		this.description = description;
 		this.author = author;
 		this.status = new ReimbursementStatus(status);
 		this.type = new ReimbursementType(type);

@@ -81,4 +81,8 @@ public class UserAuth {
 		return u;
 	}
 	
+	public boolean updateUserInfo(User u) {
+		return ud.updateUserInfo(u);
+	}
+	
 }

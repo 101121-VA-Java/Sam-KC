@@ -59,7 +59,8 @@ public class EmployeePostgres implements EmployeeDao {
 		
 		while ( rs.next() ) {		
 			
-			Reimbursement reimb = new Reimbursement(rs.getDouble("reimb_amount"), rs.getString("reimb_submitted"),
+			Reimbursement reimb = new Reimbursement(rs.getDouble("reimb_amount"), rs.getString("reimb_submitted"), 
+					rs.getString("reimb_description"),
 					u, rs.getInt("reimb_status_id"), rs.getInt("reimb_type_id"));
 			reimb.setId(rs.getInt("reimb_id"));
 			pendingList.add(reimb);
@@ -88,7 +89,8 @@ public class EmployeePostgres implements EmployeeDao {
 		
 		while ( rs.next() ) {		
 			
-			Reimbursement reimb = new Reimbursement(rs.getDouble("reimb_amount"), rs.getString("reimb_submitted"),
+			Reimbursement reimb = new Reimbursement(rs.getDouble("reimb_amount"), rs.getString("reimb_submitted"), 
+					rs.getString("reimb_description"),
 					u, rs.getInt("reimb_status_id"), rs.getInt("reimb_type_id"));
 			reimb.setId(rs.getInt("reimb_id"));
 			pendingList.add(reimb);

@@ -2,11 +2,11 @@ package com.revature;
 
 import java.util.ArrayList;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import com.revature.models.Reimbursement;
 import com.revature.models.User;
 import com.revature.services.EmployeeService;
+import com.revature.services.UserAuth;
 
 import io.javalin.http.Context;
 
@@ -21,24 +21,35 @@ public class EmployeeController {
     	ctx.result("list");
     }
     public static void updateInfo(Context ctx) {    
-    	ctx.result("list");
+    	if (UserAuthController.checkToken(ctx) == true) {     		
+    		User u = ctx.bodyAsClass(User.class);
+    		UserAuth ua = new UserAuth();
+    		
+    		if (ua.updateUserInfo(u)) {
+    			ctx.status(200);
+    			}
+    		else {
+    			ctx.status(500);
+    			}    		    		
+    	}
+    	else {
+    		ctx.status(400);
+    	}
     }
     
     public static void viewInfo(Context ctx) {    
     	if (UserAuthController.checkToken(ctx) == true) { 
     	EmployeeService es = new EmployeeService();
     	User u = es.viewAccountInfo(splitToken(ctx)[0]);
-    	GsonBuilder gsonBuilder = new GsonBuilder();
-		Gson gson = gsonBuilder.create();
-		String JSONObject = gson.toJson(u);
-		ctx.result(JSONObject);
+		ctx.json(u);
     	}
     	else {
     		ctx.result("false");
     	}
     	
     }
-    public static void viewResolvedRequest(Context ctx) {    
+    public static void viewResolvedRequest(Context ctx) {  
+
     	if (UserAuthController.checkToken(ctx) == true) { 
         	
     		EmployeeService es = new EmployeeService();
@@ -48,11 +59,9 @@ public class EmployeeController {
     		// get list of pending request
     		//set status code
     		// set JSON
-    		GsonBuilder gsonBuilder = new GsonBuilder();
-    		Gson gson = gsonBuilder.create();
-    		String JSONObject = gson.toJson(ar);
-
-    		ctx.result(JSONObject);
+  
+    		
+    		ctx.json(ar);
     	}
     	else {
     		ctx.result("false");
@@ -70,11 +79,10 @@ public class EmployeeController {
     		// get list of pending request
     		//set status code
     		// set JSON
-    		GsonBuilder gsonBuilder = new GsonBuilder();
-    		Gson gson = gsonBuilder.create();
-    		String JSONObject = gson.toJson(ar);
 
-    		ctx.result(JSONObject);
+
+    		ctx.json(ar);
+    		
     	}
     	else {
     		ctx.result("false");

@@ -31,7 +31,7 @@ public class UserAuthController {
     	UserAuth ua = new UserAuth();    	
     	User userInfo = ua.getUserbyEmail(u.getEmail());    	
     	if (userInfo != null) {
-    	String token = userInfo.getUsername() + ":" + userInfo.getPassword();
+    	String token = userInfo.getUsername() + ":" + userInfo.getPassword() + ":" + userInfo.getRole().getRole();
     	return token;
     	}
     	return null;
