@@ -42,13 +42,15 @@ public class ManagerPostgres implements ManagerDao {
 	}
 
 	@Override
-	public boolean updateRequestStatus(int reimbId, int statusId) {
-		String sql = "update ERS_REIMB set reimb_status_id = ? where reimb_id = ?;";
+	public boolean updateRequestStatus(int reimbId, int statusId, int resolverID ) {
+		String sql = "update ERS_REIMB set reimb_status_id = ?, reimb_resolver = ?,"
+				+ "reimb_resolved = current_timestamp  where reimb_id = ?;";
 
 		try (Connection conn = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, statusId);
-			ps.setInt(2, reimbId);
+			ps.setInt(2, resolverID);
+			ps.setInt(3, reimbId);
 			ps.executeUpdate();
 			return true;
 			
@@ -60,7 +62,7 @@ public class ManagerPostgres implements ManagerDao {
 
 	@Override
 	public ArrayList<Reimbursement> viewResolvedRequests() {
-		String sql = "select * from ers_reimb r join ERS_USERS u on u.u_id = r.reimb_author where r.reimb_status_id = 2;";
+		String sql = "select * from ers_reimb r join ERS_USERS u on u.u_id = r.reimb_author where r.reimb_status_id = 2 or r.reimb_status_id = 3;";
 		ArrayList<Reimbursement> pendingList = new ArrayList<Reimbursement>();
 		
 		try (Connection conn = ConnectionUtil.getConnectionFromFile()) {
@@ -86,7 +88,7 @@ public class ManagerPostgres implements ManagerDao {
 	}
 
 	@Override
-	public ArrayList<Reimbursement> viewRequest(String username) {
+	public ArrayList<Reimbursement> viewRequestByUsername(String username) {
 		String sql = "select * from ers_reimb r join ERS_USERS u on u.u_id = r.reimb_author where u.u_username = ?;";
 		ArrayList<Reimbursement> pendingList = new ArrayList<Reimbursement>();
 		
@@ -114,9 +116,30 @@ public class ManagerPostgres implements ManagerDao {
 	}
 
 	@Override
-	public User viewAllEmployees() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<User> viewAllEmployees() {
+		String sql = "select * from ERS_USERS where user_role_id  = 1;";
+		ArrayList<User> pendingList = new ArrayList<User>();
+		
+		try (Connection conn = ConnectionUtil.getConnectionFromFile()) {
+		PreparedStatement ps = conn.prepareStatement(sql);	
+		
+		ResultSet rs = ps.executeQuery();
+		
+		while ( rs.next() ) {		
+
+			//(rs.getString("u_username"));
+			
+			User u = new User(rs.getString("u_username"), rs.getString("u_password"), rs.getString("u_firstname"),
+					rs.getString("u_lastname") , rs.getString("u_email"), rs.getInt("user_role_id")
+					);
+			
+			pendingList.add(u);
+		}
+		}
+		catch (SQLException | IOException e) {			
+			e.printStackTrace();			
+		}
+		return pendingList;
 	}
 
 	@Override

@@ -27,28 +27,33 @@ public class ManagerDaoTest {
 	
 private ManagerDao md = new ManagerPostgres();
 	
-	@Test
-	public void viewPendingRequests() {	
-		// it works
-		System.out.println(md.viewPendingRequests().toString());
-		
-	}
-	
+//	@Test
+//	public void viewPendingRequests() {	
+//		// it works
+//		System.out.println(md.viewPendingRequests().toString());
+//		
+//	}
+//	
 	@Test
 	public void updateRequestStatus() {
-		
-		Reimbursement r = md.viewPendingRequests().get(0);
-		r.setDescription("testing");
-		// it works
-		md.updateRequestStatus(r.getId(), 3);
+		//works
+		//int reimbId, int statusId, int resolverID
+		md.updateRequestStatus(7, 1, 2);
 				
 	}
-	@Test
-	public void viewReimbByUsername() {
-		// it works
-		String reimb = md.viewRequest("user321").toString();
-		System.out.println(reimb);
-				
-	}
+//	@Test
+//	public void viewReimbByUsername() {
+//		// it works
+//		String reimb = md.viewRequestByUsername("user321").toString();
+//		System.out.println(reimb);
+//				
+//	}
+//	@Test
+//	public void viewAllEmplyoees() {
+//		// it works
+//		String reimb = md.viewAllEmployees().toString();
+//		System.out.println(reimb);
+//				
+//	}
 
 }

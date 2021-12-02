@@ -84,5 +84,14 @@ public class UserAuth {
 	public boolean updateUserInfo(User u) {
 		return ud.updateUserInfo(u);
 	}
-	
+	public User getUserbyUsername(String username) {
+		UserPostgres up = new UserPostgres();
+		try {
+			return up.getUser(username);
+		} catch (SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;		
+	}
 }

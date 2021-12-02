@@ -9,11 +9,11 @@ public interface ManagerDao {
 
 	//managers
 	ArrayList<Reimbursement> viewPendingRequests();
-	boolean updateRequestStatus(int reimbId, int statusId);
+	boolean updateRequestStatus(int reimbId, int statusId, int resolverID);
 	ArrayList<Reimbursement> viewResolvedRequests();
-	ArrayList<Reimbursement> viewRequest(String username);
+	ArrayList<Reimbursement> viewRequestByUsername(String username);
 	User viewUserInfo(User u);	
 	User updateUserInfo(User u);
-	User viewAllEmployees();
+	ArrayList<User> viewAllEmployees();
 	
 }

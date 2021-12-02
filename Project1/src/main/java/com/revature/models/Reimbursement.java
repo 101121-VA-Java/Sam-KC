@@ -33,6 +33,7 @@ public class Reimbursement {
 		this.author = author;
 		this.status = new ReimbursementStatus(status);
 		this.type = new ReimbursementType(type);
+
 	}
 	public int getId() {
 		return id;

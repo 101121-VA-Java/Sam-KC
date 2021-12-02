@@ -12,8 +12,32 @@ btn0.addEventListener("click", deleteSession);
 
 
 
+//-- VIEWS---
 
+// view pending reimb
+const divPending = document.getElementById('pendingList');
+if (divPending != null){
+    viewPending();
+};
 
+//view resolved requests
+const divResolved = document.getElementById('resolvedList');
+if (divResolved != null ){
+    viewResolved();
+};
+//view employee list
+const divEmployees = document.getElementById('employeeList');
+if (divEmployees != null ){
+    viewEmployees();
+};
+
+// approve/ deny requests
+const divPanel = document.getElementById('pendingPanelList');
+if (divPanel != null ){ 
+    viewPendingPanel();
+};
+
+//-- END VIEWS---
 
 // ---------------REUSEABLE FUNCS---------------
 
@@ -42,43 +66,185 @@ async function getRequestData(r_url) {
 
 };
 
+async function updateReimbAPI(reimbId, statusId) {
+    try {
+    
+    let response = await fetch("http://localhost/reimbursement", {method: 'put',
+    headers : {'authToken': AuthToken, 'Content-Type': 'application/json'},        
+    body: `{"reimbId" : "${reimbId}" , "statusId" : "${statusId}"}`
+    });
+    if (response.status == 200) {         
+        alert("Updated");
+        }
+        else {      
+        var titleName = document.getElementById('errorMsg'); 
+        titleName.innerText  = response.status;    
+        }
+    }
+    catch (err) {
+        var titleName = document.getElementById('errorMsg'); 
+        titleName.innerText  = err;
+        
+    };
+
+
+
+    //alert(JSON.stringify(jsontext[0].id)); how to get values
+
+};
+
 
 
 function viewTable(table, jsontext){
+   
     for (let i = 0; i < jsontext.length +1 ; i++) {
-        var row = table.insertRow(0);        
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        var cell5 = row.insertCell(4);
-        var cell6 = row.insertCell(5);
+        var cells = [];
+
+        var row = table.insertRow(0);  
+        for (let ic = 0; ic < 6 ; ic++) {
+            cells[ic] = row.insertCell(ic);
+        }              
+
         if (i === jsontext.length) {                    
-            cell1.innerHTML = "ID";  
-            cell2.innerHTML = "submittedDate";  
-            cell3.innerHTML = "amount"; 
-            cell4.innerHTML = "description"; 
-            cell5.innerHTML = "type"; 
-            cell6.innerHTML = "status"; 
+            cells[0].innerHTML = "ID";  
+            cells[1].innerHTML = "submittedDate";  
+            cells[2].innerHTML = "amount"; 
+            cells[3].innerHTML = "description"; 
+            cells[4].innerHTML = "type"; 
+            cells[5].innerHTML = "status"; 
             }
         else {
-            cell1.innerHTML = jsontext[i].id;
-            cell2.innerHTML = jsontext[i].submittedDate;  
-            cell3.innerHTML = jsontext[i].amount; 
-            cell4.innerHTML = jsontext[i].description;
-            cell5.innerHTML = jsontext[i].type.type;
-            cell6.innerHTML = jsontext[i].status.status;
+            cells[0].innerHTML = jsontext[i].id;
+            cells[1].innerHTML = jsontext[i].submittedDate;  
+            cells[2].innerHTML = jsontext[i].amount; 
+            cells[3].innerHTML = jsontext[i].description;
+            cells[4].innerHTML = jsontext[i].type.type;
+            cells[5].innerHTML = jsontext[i].status.status;
+        }
+
+    }
+}
+function viewTableEmployees(table, jsontext){
+   
+    for (let i = 0; i < jsontext.length +1 ; i++) {
+        var cells = [];
+
+        var row = table.insertRow(0);  
+        for (let ic = 0; ic < 6 ; ic++) {
+            cells[ic] = row.insertCell(ic);
+        }              
+
+        if (i === jsontext.length) {                    
+            cells[0].innerHTML = "User ID";  
+            cells[1].innerHTML = "Username";  
+            cells[2].innerHTML = "Password"; 
+            cells[3].innerHTML = "First Name"; 
+            cells[4].innerHTML = "Last Name"; 
+            cells[5].innerHTML = "Email"; 
+            }
+        else {
+            cells[0].innerHTML = jsontext[i].userId;
+            cells[1].innerHTML = jsontext[i].username;  
+            cells[2].innerHTML = jsontext[i].password; 
+            cells[3].innerHTML = jsontext[i].firstName;
+            cells[4].innerHTML = jsontext[i].lastName;
+            cells[5].innerHTML = jsontext[i].email;
+        }
+
+    }
+}
+function viewTablePanel(table, jsontext){
+    for (let i = 0; i < jsontext.length +1 ; i++) {
+        var cells = [];
+
+        var row = table.insertRow(0);  
+        for (let ic = 0; ic < 7 ; ic++) {
+            cells[ic] = row.insertCell(ic);
+        }              
+
+        if (i === jsontext.length) {                    
+            //cells[0].innerHTML = "ID";  
+            cells[0].innerHTML = "Username";
+            cells[1].innerHTML = "submittedDate";  
+            cells[2].innerHTML = "amount"; 
+            cells[3].innerHTML = "description"; 
+            cells[4].innerHTML = "type"; 
+            cells[5].innerHTML = "status"; 
+            cells[6].innerHTML = "Update";
+            }
+        else {
+            
+            //cells[0].innerHTML = jsontext[i].id;
+            cells[0].innerHTML = jsontext[i].author.username;
+            cells[1].innerHTML = jsontext[i].submittedDate;  
+            cells[2].innerHTML = jsontext[i].amount; 
+            cells[3].innerHTML = jsontext[i].description;
+            cells[4].innerHTML = jsontext[i].type.type;
+            cells[5].innerHTML = jsontext[i].status.status;
+            cells[6].innerHTML = `<button onclick="updateReimb('${jsontext[i].id}' , '2')">Approve</button>
+            <button onclick="updateReimb('${jsontext[i].id}' , '3')">Deny</button>            
+            `;
         }
 
     }
 }
 
+
 // --------------- END REUSEABLE FUNCS---------------
+
+async function updateReimb(reimbId, statusId){
+    updateReimbAPI(reimbId, statusId);
+    location.reload();
+}
 
 
 // -------- PAGE SPECIFIC SCRIPTS--------------
+async function viewPending(){
+    var jsontext = await getRequestData("http://localhost/reimbursement/pending/all");
+    const table = document.getElementById('pendingList');
+    viewTable(table, jsontext);
+};
 
+async function viewResolved() {
+    var jsontext = await getRequestData("http://localhost/reimbursement/resolved/all");
+    const table = document.getElementById('resolvedList');
+    viewTable(table, jsontext);
+};
+async function viewEmployees() {
+    var jsontext = await getRequestData("http://localhost/employees");
+    const table = document.getElementById('employeeList');
+    const searchBtn = document.getElementById('searchBtn');
+    searchBtn.addEventListener("click", searchUser);
+    viewTableEmployees(table, jsontext);
+};
+async function viewPendingPanel(){
+    var jsontext = await getRequestData("http://localhost/reimbursement/pending/all");
+    const table = document.getElementById('pendingPanelList');
+    viewTablePanel(table, jsontext);
+};
 
+async function searchUser(){
+    //resetting the table before viewing it again
+    const table = document.getElementById('singleEmployee');
+    while(table.rows.length > 0) {
+        table.deleteRow(0);
+      }
+    let usr = document.getElementById("e_username").value;    
+    var jsontext = await getRequestData(`http://localhost/reimbursement/${usr}`);
+
+    if (jsontext == null || jsontext.length == 0 ) {       
+        let searchMsg = document.getElementById("searchMsg"); 
+        searchMsg.innerText = "No records from this user";
+    }
+     else {        
+        
+        const table = document.getElementById('singleEmployee');
+        searchMsg.innerText = "";
+        viewTable(table, jsontext);
+     }
+ 
+    
+}
 
 // -------- END PAGE SPECIFIC SCRIPTS--------------
 

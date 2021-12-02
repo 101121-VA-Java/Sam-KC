@@ -33,7 +33,7 @@ public class EmployeeDaoTest {
 		User user = new User("username", "password", "firstname",
 				"lastname", "email", 1);		
 		user.setUserId(1);
-		double amount = 150;
+		double amount = 1500;
 		Reimbursement reimb = new Reimbursement(amount, "11/16/2021",
 				"test" ,user, 1, 1);
 				

@@ -47,8 +47,8 @@ public class Routes {
 				});
 				
 			});
-			path("{id} ",() ->{  
-				get(ManagerController::viewReimbByUserId); //Manager can view reimbursement requests from a single Employee 
+			path("{username}",() ->{  
+				get(ManagerController::viewReimbByUsername); //Manager can view reimbursement requests from a single Employee 
 			});
 		});
 		path("employees", ()->{

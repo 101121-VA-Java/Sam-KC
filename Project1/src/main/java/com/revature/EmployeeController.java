@@ -18,7 +18,7 @@ public class EmployeeController {
     }
     
     public static void submitReimbRequest(Context ctx) {    
-    	ctx.result("list");
+    	ctx.result("li3st");
     }
     public static void updateInfo(Context ctx) {    
     	if (UserAuthController.checkToken(ctx) == true) {     		
@@ -44,6 +44,7 @@ public class EmployeeController {
 		ctx.json(u);
     	}
     	else {
+    		ctx.status(400);
     		ctx.result("false");
     	}
     	
@@ -85,6 +86,7 @@ public class EmployeeController {
     		
     	}
     	else {
+    		ctx.status(400);
     		ctx.result("false");
     	}
     }

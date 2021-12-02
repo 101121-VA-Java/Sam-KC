@@ -82,28 +82,28 @@ async function getRequestData(r_url) {
 
 function viewTable(table, jsontext){
     for (let i = 0; i < jsontext.length +1 ; i++) {
-        var row = table.insertRow(0);        
-        var cell1 = row.insertCell(0);
-        var cell2 = row.insertCell(1);
-        var cell3 = row.insertCell(2);
-        var cell4 = row.insertCell(3);
-        var cell5 = row.insertCell(4);
-        var cell6 = row.insertCell(5);
+        var cells = [];
+
+        var row = table.insertRow(0);  
+        for (let ic = 0; ic < 6 ; ic++) {
+            cells[ic] = row.insertCell(ic);
+        }              
+
         if (i === jsontext.length) {                    
-            cell1.innerHTML = "ID";  
-            cell2.innerHTML = "submittedDate";  
-            cell3.innerHTML = "amount"; 
-            cell4.innerHTML = "description"; 
-            cell5.innerHTML = "type"; 
-            cell6.innerHTML = "status"; 
+            cells[0].innerHTML = "ID";  
+            cells[1].innerHTML = "submittedDate";  
+            cells[2].innerHTML = "amount"; 
+            cells[3].innerHTML = "description"; 
+            cells[4].innerHTML = "type"; 
+            cells[5].innerHTML = "status"; 
             }
         else {
-            cell1.innerHTML = jsontext[i].id;
-            cell2.innerHTML = jsontext[i].submittedDate;  
-            cell3.innerHTML = jsontext[i].amount; 
-            cell4.innerHTML = jsontext[i].description;
-            cell5.innerHTML = jsontext[i].type.type;
-            cell6.innerHTML = jsontext[i].status.status;
+            cells[0].innerHTML = jsontext[i].id;
+            cells[1].innerHTML = jsontext[i].submittedDate;  
+            cells[2].innerHTML = jsontext[i].amount; 
+            cells[3].innerHTML = jsontext[i].description;
+            cells[4].innerHTML = jsontext[i].type.type;
+            cells[5].innerHTML = jsontext[i].status.status;
         }
 
     }
