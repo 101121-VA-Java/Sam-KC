@@ -14,9 +14,12 @@ btn0.addEventListener("click", deleteSession);
 
 
 //submit reimb
-const btn = document.getElementById('submitreimb');
-if (btn != null){
-btn.addEventListener("click", submitReimb);
+const submitBtn = document.getElementById('submit_btn');
+if (submitBtn != null){
+    submitBtn.addEventListener("click", submitReimb);
+
+    const upload_btn2 = document.getElementById('upload_btn');    
+    upload_btn2.addEventListener("click", method2);
 };
 
 // view pending reimb
@@ -40,16 +43,6 @@ if (divAccount != null){
     btn.addEventListener("click", updateUserInfo);
 };
 
-//let u_username = AuthToken.split(':')[0];
-
-
-// async function submitReimb(){
-//     let requestBody = `{"email" : "${email}" , "password" : "${password}"}`; 
-//     let response = await fetch('http://localhost/reimbursement', {method: 'post',
-//     headers : {'Content-Type': 'application/json'},         
-//     body : requestBody         
-//     });
-// };
 
 // ---------------REUSEABLE FUNCS---------------
 
@@ -178,6 +171,43 @@ async function updateUserInfo() {
         };
 }
 
+
+async function submitReimb() {
+
+    var type = document.getElementById('reimbType').value; 
+    var amount = document.getElementById('reimbAmount').value;
+    var descrip = document.getElementById('reimbDescription').value;
+    
+    var input = document.querySelector('input[type="file"]');
+    console.log(input.files.length)
+
+
+
+
+}
+
+async function method2() {
+// QR CODE //
+let currentSession = getCookie('authToken');
+u_name = currentSession.split(':')[0];
+var qrcode = new QRCode("qrcode");
+function makeCode () {    
+var elText = document.getElementById("text"); 
+qrcode.makeCode("http://127.0.0.1:8000/project/" + u_name);
+}
+makeCode();
+$("#text").
+on("blur", function () {
+makeCode();
+}).
+on("keydown", function (e) {
+if (e.keyCode == 13) {
+makeCode();
+}
+});
+// END QR CODE //
+}
+
 // -------- END PAGE SPECIFIC SCRIPTS--------------
 
 
@@ -197,6 +227,7 @@ function getCookie(cname) {
     }
     return "";
     }
+
 
     //default check
 function checkSession(){

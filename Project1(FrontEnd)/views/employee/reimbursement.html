@@ -63,34 +63,42 @@
 <div id = "reimb_form">
 
 <br><br><br><br>
-<select class="form-select" aria-label="Default select example">
-  <option selected>Reimbursement Type</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+<select class="form-select" id = "reimbType" aria-label="Default select example">
+  <option selected>Lodging</option>
+  <option value="1">Travel</option>
+  <option value="2">Food</option>
+  <option value="3">Other</option>
 </select>
 <br>
 <div class="mb-3">
   <label for="formGroupExampleInput" class="form-label">Reimbursement Amount:</label>
-  <input type="text" class="form-control" id="formGroupExampleInput" placeholder="$0.00">
+  <input type="text" class="form-control" id="reimbAmount" placeholder="$0.00">
 </div>
 <div class="input-group" id = "description_box">
   <span class="input-group-text">Description</span>
-  <textarea rows="4" class="form-control" aria-label="With textarea"></textarea>
+  <textarea rows="4" class="form-control" id="reimbDescription" aria-label="With textarea"></textarea>
 </div>
 <br>
 <div class="input-group mb-3">
   <input type="file" class="form-control" id="inputGroupFile02">
-  <label class="input-group-text" for="inputGroupFile02">Upload</label>
+
+  <label class="input-group-text" for="inputGroupFile02" id = "localUploadBtn"  >Upload</label>
+
 </div>
 
-<button type="submit" class="btn btn-primary" id = "upload_btn">Upload Method 2</button>
+<button type="submit" class="btn btn-primary" id = "upload_btn">Uplaod method 2</button>
+<H1 style = "text-align: center">HI</H1>
+
+
+<div id="qrcode"></div>
+
 <br><br>
 <button type="submit" class="btn btn-primary" id = "submit_btn">Submit</button>
 </div>
    
 <footer>
   <h1 style = "text-align: center"; id = "errorMsg"></h1>
+  <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
   <script src="../../js/employee.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </footer>
