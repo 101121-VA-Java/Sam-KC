@@ -8,10 +8,12 @@ import com.revature.models.User;
 import com.revature.repositories.EmployeeDao;
 import com.revature.repositories.EmployeePostgres;
 import com.revature.repositories.UserPostgres;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class EmployeeService {
 
-	
+	private static Logger log = LogManager.getRootLogger();
 	private EmployeeDao ed;
 	
 	
@@ -45,6 +47,7 @@ public class EmployeeService {
 			return up.getUser(username);
 		} catch (SQLException | IOException e) {
 			// TODO Auto-generated catch block
+			log.fatal("Fatal error when viewing account information.");
 			e.printStackTrace();
 		}
 		return null;		
