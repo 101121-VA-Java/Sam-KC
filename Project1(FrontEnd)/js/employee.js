@@ -94,7 +94,7 @@ function viewTable(table, jsontext){
         else {
             cells[0].innerHTML = jsontext[i].id;
             cells[1].innerHTML = jsontext[i].submittedDate;  
-            cells[2].innerHTML = jsontext[i].amount; 
+            cells[2].innerHTML = "$" + jsontext[i].amount; 
             cells[3].innerHTML = jsontext[i].description;
             cells[4].innerHTML = jsontext[i].type.type;
             cells[5].innerHTML = jsontext[i].status.status;
