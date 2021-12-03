@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 
 import com.revature.models.Reimbursement;
+import com.revature.models.ReimbursementStatus;
 import com.revature.models.User;
 import com.revature.services.EmployeeService;
 import com.revature.services.UserAuth;
@@ -18,7 +19,27 @@ public class EmployeeController {
     }
     
     public static void submitReimbRequest(Context ctx) {    
-    	ctx.result("li3st");
+    	
+
+    	if (UserAuthController.checkToken(ctx) == true) { 
+    	EmployeeService es = new EmployeeService();
+    	User u = es.viewAccountInfo(splitToken(ctx)[0]);    	
+    	System.out.println(u.getFirstName());
+    	//double amount, String submittedDate, String description, User author, int status,
+		//int type
+    	Reimbursement r =ctx.bodyAsClass(Reimbursement.class);
+    	r.setAuthor(u);
+    	ReimbursementStatus rs = new ReimbursementStatus(1);
+    	r.setStatus(rs);
+    	es.submitReimbRequest(r);
+    	ctx.status(200);
+    	;
+    	}
+    	else {
+    		ctx.status(400);
+    		
+    	}
+    	
     }
     public static void updateInfo(Context ctx) {    
     	if (UserAuthController.checkToken(ctx) == true) {     		
@@ -70,7 +91,7 @@ public class EmployeeController {
     }
     public static void viewPendingRequest(Context ctx) {    
     	
-
+    	
     	if (UserAuthController.checkToken(ctx) == true) { 
     	
     		EmployeeService es = new EmployeeService();
@@ -81,7 +102,7 @@ public class EmployeeController {
     		//set status code
     		// set JSON
 
-
+    		System.out.println(ar.toString());
     		ctx.json(ar);
     		
     	}
@@ -95,5 +116,9 @@ public class EmployeeController {
     	String token = ctx.header("authToken");    	
     	String[] tokens = token.split(":");
     	return tokens;
+    }
+    
+    public static void fetchChanges(Context ctx) {
+    	
     }
 }

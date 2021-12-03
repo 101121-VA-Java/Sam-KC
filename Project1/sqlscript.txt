@@ -1,0 +1,52 @@
+CREATE TABLE ERS_USERS_ROLES (
+user_role_id SERIAL PRIMARY KEY,
+user_role varchar(10)
+);
+
+
+CREATE TABLE ERS_USERS (
+    u_id SERIAL PRIMARY KEY,
+    u_username varchar(50) not null UNIQUE,    
+    u_password varchar(50) not null,
+    u_firstname varchar(100) not null,
+    u_lastname varchar(100) not null,
+    u_email varchar(150) not null,
+    user_role_id int REFERENCES ERS_USERS_ROLES (user_role_id)
+);
+
+CREATE TABLE ERS_REIMB_STATUS (
+reimb_status_id SERIAL PRIMARY KEY,
+reimb_status varchar(10)
+);
+
+CREATE TABLE ERS_REIMB_TYPE (
+reimb_type_id SERIAL PRIMARY KEY,
+reimb_type varchar(10)
+);
+
+CREATE TABLE ERS_REIMB (
+reimb_id SERIAL PRIMARY KEY,
+reimb_amount decimal,
+reimb_submitted timestamp DEFAULT CURRENT_TIMESTAMP,
+reimb_resolved timestamp,
+reimb_description varchar(250),
+reimb_receipt varchar(200),
+reimb_author int REFERENCES ERS_USERS (u_id),
+reimb_resolver int REFERENCES ERS_USERS (u_id),
+reimb_status_id int REFERENCES ERS_REIMB_STATUS (reimb_status_id),
+reimb_type_id int REFERENCES ERS_REIMB_TYPE (reimb_type_id)
+);
+
+
+insert into ERS_REIMB_STATUS (reimb_status) values ('pending');
+insert into ERS_REIMB_STATUS (reimb_status) values ('approved');
+insert into ERS_REIMB_STATUS (reimb_status) values ('denied');
+
+insert into ers_reimb_type (reimb_type) values ('lodging');
+insert into ers_reimb_type (reimb_type) values ('travel');
+insert into ers_reimb_type (reimb_type) values ('food');
+insert into ers_reimb_type (reimb_type) values ('other');
+insert into ers_reimb_type (reimb_type) values ('unknown');
+
+insert into ers_users_roles  (user_role) values ('employee');
+insert into ers_users_roles  (user_role) values ('manager');

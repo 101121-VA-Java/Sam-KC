@@ -56,6 +56,11 @@ public class Routes {
 				get(ManagerController::viewAllEmployees); //Manager can view all employees
 			});
 		});
+		path("fetchChanges", ()->{
+			path("",() ->{
+				get(EmployeeController::fetchChanges); //Manager can view all employees
+			});
+		});
 				
 	});
 	

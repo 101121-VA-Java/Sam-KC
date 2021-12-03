@@ -21,7 +21,7 @@ public class EmployeePostgres implements EmployeeDao {
 	@Override
 	public boolean submitReimbRequest(Reimbursement r) {
 		String sql = "INSERT INTO ERS_REIMB (reimb_amount, reimb_author, "
-				+ "reimb_status_id, reimb_type_id ) VALUES (?,?,?,?);";
+				+ "reimb_status_id, reimb_type_id, reimb_receipt ) VALUES (?,?,?,?,?);";
 
 		try (Connection conn = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -29,6 +29,7 @@ public class EmployeePostgres implements EmployeeDao {
 			ps.setInt(2, r.getAuthor().getUserId());
 			ps.setInt(3, r.getStatus().getId());
 			ps.setInt(4, r.getType().getId());
+			ps.setString(5, r.getReceipt());
 			ps.executeUpdate();
 			return true;
 			
@@ -57,12 +58,12 @@ public class EmployeePostgres implements EmployeeDao {
 		ps.setString(1, u.getUsername());
 		ResultSet rs = ps.executeQuery();
 		
-		while ( rs.next() ) {		
-			
+		while ( rs.next() ) {					
 			Reimbursement reimb = new Reimbursement(rs.getDouble("reimb_amount"), rs.getString("reimb_submitted"), 
 					rs.getString("reimb_description"),
 					u, rs.getInt("reimb_status_id"), rs.getInt("reimb_type_id"));
 			reimb.setId(rs.getInt("reimb_id"));
+			reimb.setReceipt(rs.getString("reimb_receipt"));
 			pendingList.add(reimb);
 		}
 		}
@@ -93,6 +94,7 @@ public class EmployeePostgres implements EmployeeDao {
 					rs.getString("reimb_description"),
 					u, rs.getInt("reimb_status_id"), rs.getInt("reimb_type_id"));
 			reimb.setId(rs.getInt("reimb_id"));
+			reimb.setReceipt(rs.getString("reimb_receipt"));
 			pendingList.add(reimb);
 		}
 		}

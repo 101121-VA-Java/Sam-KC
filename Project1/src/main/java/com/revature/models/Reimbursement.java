@@ -1,6 +1,8 @@
 package com.revature.models;
 
-public class Reimbursement {
+import java.io.Serializable;
+
+public class Reimbursement implements Serializable {
 	
 	private int id;
 	private double amount;
@@ -34,6 +36,9 @@ public class Reimbursement {
 		this.status = new ReimbursementStatus(status);
 		this.type = new ReimbursementType(type);
 
+	}
+	public Reimbursement() {
+		// TODO Auto-generated constructor stub
 	}
 	public int getId() {
 		return id;

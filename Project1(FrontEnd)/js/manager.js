@@ -96,12 +96,11 @@ async function updateReimbAPI(reimbId, statusId) {
 
 
 function viewTable(table, jsontext){
-   
     for (let i = 0; i < jsontext.length +1 ; i++) {
         var cells = [];
 
         var row = table.insertRow(0);  
-        for (let ic = 0; ic < 6 ; ic++) {
+        for (let ic = 0; ic < 7 ; ic++) {
             cells[ic] = row.insertCell(ic);
         }              
 
@@ -112,6 +111,7 @@ function viewTable(table, jsontext){
             cells[3].innerHTML = "description"; 
             cells[4].innerHTML = "type"; 
             cells[5].innerHTML = "status"; 
+            cells[6].innerHTML = "receipt"; 
             }
         else {
             cells[0].innerHTML = jsontext[i].id;
@@ -120,6 +120,8 @@ function viewTable(table, jsontext){
             cells[3].innerHTML = jsontext[i].description;
             cells[4].innerHTML = jsontext[i].type.type;
             cells[5].innerHTML = jsontext[i].status.status;
+            cells[6].innerHTML = `<a href="${jsontext[i].receipt}"> Download </a>`;
+            
         }
 
     }

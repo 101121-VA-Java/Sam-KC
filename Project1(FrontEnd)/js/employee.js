@@ -78,7 +78,7 @@ function viewTable(table, jsontext){
         var cells = [];
 
         var row = table.insertRow(0);  
-        for (let ic = 0; ic < 6 ; ic++) {
+        for (let ic = 0; ic < 7 ; ic++) {
             cells[ic] = row.insertCell(ic);
         }              
 
@@ -89,6 +89,7 @@ function viewTable(table, jsontext){
             cells[3].innerHTML = "description"; 
             cells[4].innerHTML = "type"; 
             cells[5].innerHTML = "status"; 
+            cells[6].innerHTML = "receipt"; 
             }
         else {
             cells[0].innerHTML = jsontext[i].id;
@@ -97,6 +98,8 @@ function viewTable(table, jsontext){
             cells[3].innerHTML = jsontext[i].description;
             cells[4].innerHTML = jsontext[i].type.type;
             cells[5].innerHTML = jsontext[i].status.status;
+            cells[6].innerHTML = `<a href="${jsontext[i].receipt}"> Download </a>`;
+            
         }
 
     }
@@ -171,29 +174,105 @@ async function updateUserInfo() {
         };
 }
 
+async function pingForChange(r_url, interval) {   
 
-async function submitReimb() {
-
-    var type = document.getElementById('reimbType').value; 
-    var amount = document.getElementById('reimbAmount').value;
-    var descrip = document.getElementById('reimbDescription').value;
-    
+    let response = await fetch(r_url, {method: 'get', 
+    header : "no-cors"});
+    let bodyText = await response.text(); 
+    if (response.status === 200) {
+        clearInterval(interval);
+        mobileUpload = bodyText;
+        alert("File Recieved!");
+        } 
+    else{      
+    }
+};
+async function localUpload(file) { 
+    let formData = new FormData();
+    formData.append('img', file);
+    let currentSession = getCookie('authToken');
+    u_name = currentSession.split(':')[0]; 
+    let response = await fetch("https://filebeam.io/saveReimbFile/" + u_name , {method: 'post', 
+    header : "no-cors",
+    body: formData
+    });
+    let bodyText = await response.text(); 
+    if (response.status === 200) {        
+        sendReimb(bodyText);
+        } 
+    else{      
+    }
+}
+var mobileUpload = 'null';
+async function submitReimb() {    
     var input = document.querySelector('input[type="file"]');
-    console.log(input.files.length)
+    if (input.files.length != 0) {
+        // add file
+        localUpload(input.files[0])        
+    }
+    else if (mobileUpload != 'null' ){
+        sendReimb(mobileUpload);        
+    }
+    else if ((input.files.length == 0) & (mobileUpload == 'null' )) {
+        sendReimb('null');        
+    }
 
+    // add file
+}
+async function sendReimb(receipt) {
+var type = document.getElementById('reimbType').value; 
+var amount = document.getElementById('reimbAmount').value;
+var description = document.getElementById('reimbDescription').value;
+var receipt = receipt;
+if ( type == 'Lodging'){
+    type = 1;
+}
+else if (type == 'Travel'){
+    type = 2;
+}
+else if (type == 'Food'){
+    type = 3;
+}
+else if (type == 'Other'){
+    type = 4;
+}
+let reimbList = {
+    type: type,
+    amount: amount,
+    description: description,
+    receipt: receipt,
+  }
 
+let response = await fetch('http://localhost/reimbursement', {method: 'post',
+headers : {'Content-Type': 'application/json', 'authToken': AuthToken},         
+body: JSON.stringify(reimbList)       
+});
 
-
+let responsetext = await response.text();
+if(response.status == 200){       
+alert("Reimb Submitted!");
+}
+else {
+    alert("Submission failed");
+}
 }
 
 async function method2() {
-// QR CODE //
+
 let currentSession = getCookie('authToken');
-u_name = currentSession.split(':')[0];
+u_name = currentSession.split(':')[0];   
+
+//clearInterval(interval);
+const interval = setInterval(function() {
+pingForChange("https://filebeam.io/checkFileExists/" + u_name, interval);
+}, 2000);
+    
+// QR CODE //
+
 var qrcode = new QRCode("qrcode");
 function makeCode () {    
 var elText = document.getElementById("text"); 
-qrcode.makeCode("http://127.0.0.1:8000/project/" + u_name);
+qrcode.makeCode("https://filebeam.io/project1/" + u_name);
 }
 makeCode();
 $("#text").
