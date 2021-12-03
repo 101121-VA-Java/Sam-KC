@@ -13,10 +13,7 @@ import io.javalin.http.Context;
 
 public class EmployeeController {
 	
-    public static void getEmployeeById(Context ctx) {    
-    	
 
-    }
     
     public static void submitReimbRequest(Context ctx) {    
     	
@@ -112,9 +109,6 @@ public class EmployeeController {
     	String token = ctx.header("authToken");    	
     	String[] tokens = token.split(":");
     	return tokens;
-    }
-    
-    public static void fetchChanges(Context ctx) {
-    	
-    }
+    }    
+
 }

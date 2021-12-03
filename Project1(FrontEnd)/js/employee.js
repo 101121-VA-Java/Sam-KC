@@ -224,18 +224,10 @@ var type = document.getElementById('reimbType').value;
 var amount = document.getElementById('reimbAmount').value;
 var description = document.getElementById('reimbDescription').value;
 var receipt = receipt;
-if ( type == 'Lodging'){
+if ( type == 'Select'){
     type = 1;
 }
-else if (type == 'Travel'){
-    type = 2;
-}
-else if (type == 'Food'){
-    type = 3;
-}
-else if (type == 'Other'){
-    type = 4;
-}
+
 let reimbList = {
     type: type,
     amount: amount,

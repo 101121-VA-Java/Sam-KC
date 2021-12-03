@@ -21,7 +21,7 @@ public class EmployeePostgres implements EmployeeDao {
 	@Override
 	public boolean submitReimbRequest(Reimbursement r) {
 		String sql = "INSERT INTO ERS_REIMB (reimb_amount, reimb_author, "
-				+ "reimb_status_id, reimb_type_id, reimb_receipt ) VALUES (?,?,?,?,?);";
+				+ "reimb_status_id, reimb_type_id, reimb_receipt, reimb_description ) VALUES (?,?,?,?,?, ?);";
 
 		try (Connection conn = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -30,6 +30,7 @@ public class EmployeePostgres implements EmployeeDao {
 			ps.setInt(3, r.getStatus().getId());
 			ps.setInt(4, r.getType().getId());
 			ps.setString(5, r.getReceipt());
+			ps.setString(6, r.getDescription());
 			ps.executeUpdate();
 			return true;
 			

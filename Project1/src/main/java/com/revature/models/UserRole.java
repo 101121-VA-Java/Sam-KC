@@ -19,8 +19,7 @@ public class UserRole {
 			role = "manager";
 			break;
 		default:
-			role = "unknown";
-			// log here
+			role = "unknown";			
 			break;		
 		}
 			

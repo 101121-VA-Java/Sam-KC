@@ -142,16 +142,6 @@ public class ManagerPostgres implements ManagerDao {
 		return pendingList;
 	}
 
-	@Override
-	public User viewUserInfo(User u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public User updateUserInfo(User u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
